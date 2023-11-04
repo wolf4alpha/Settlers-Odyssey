@@ -237,7 +237,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.43, y: -0.76}
+  m_AnchoredPosition: {x: 0.37, y: -0.72}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &121756577
@@ -400,8 +400,9 @@ MonoBehaviour:
   canvas: {fileID: 193827536}
   cam: {fileID: 573614296}
   hungerText: {fileID: 1641415622}
-  sleepText: {fileID: 2121323051}
+  energyText: {fileID: 1437637606}
   stateText: {fileID: 1305065520}
+  moneyText: {fileID: 2121323051}
   actionText: {fileID: 121756577}
   villager: {fileID: 332663162}
 --- !u!1 &302082659
@@ -531,14 +532,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8572b750b2d6cc4fb6fe78c5ede5425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 10
-  maxSleep: 100
-  maxFood: 100
+  maxEnergy: 100
   maxHunger: 100
-  currentHealth: 0
-  currentSleep: 0
-  currentHunger: 0
-  currentEnergy: 0
+  maxMoney: 1000
 --- !u!114 &332663160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -575,11 +571,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b7c4b48c78c554083c243296374e7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentAction: 
   actionsAvailable:
   - {fileID: 11400000, guid: e5177458cd5ace04c83069fa882fd7a1, type: 2}
   - {fileID: 11400000, guid: 28aa4de650dec3e45981a6d2631461c8, type: 2}
   - {fileID: 11400000, guid: 5d9adf6ac8c200944b7670879fd5c8e2, type: 2}
+  currentAction: 
 --- !u!1 &442964794
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,13 +707,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 573614293}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.13180658, y: -0.545873, z: 0.38434327, w: 0.7327551}
-  m_LocalPosition: {x: -0, y: 13.59, z: -8}
+  m_LocalRotation: {x: 0.04055527, y: -0.5018509, z: 0.35454905, w: 0.7879061}
+  m_LocalPosition: {x: -0.59, y: 6.83, z: -6.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1219457169}
-  m_LocalEulerAnglesHint: {x: 37.79, y: -62.14, z: 32.05}
+  m_LocalEulerAnglesHint: {x: 24.82, y: -57.1, z: 34.8}
 --- !u!81 &573614295
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1245,8 +1241,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b7c4b48c78c554083c243296374e7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentAction: 
   actionsAvailable: []
+  currentAction: 
 --- !u!114 &861052268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1259,14 +1255,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8572b750b2d6cc4fb6fe78c5ede5425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 0
-  maxSleep: 0
-  maxFood: 0
+  maxEnergy: 0
   maxHunger: 0
-  currentHealth: 0
-  currentSleep: 0
-  currentHunger: 0
-  currentEnergy: 0
+  maxMoney: 0
 --- !u!1 &863616712
 GameObject:
   m_ObjectHideFlags: 0
@@ -1835,7 +1826,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.43, y: -0.86}
+  m_AnchoredPosition: {x: 0.37, y: -0.86}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1305065520
@@ -2232,7 +2223,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.43, y: -0.35}
+  m_AnchoredPosition: {x: 0.37, y: -0.35}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1437637606
@@ -2394,7 +2385,7 @@ GameObject:
   - component: {fileID: 1494403744}
   - component: {fileID: 1494403743}
   m_Layer: 5
-  m_Name: Sleep
+  m_Name: Energy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2452,7 +2443,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Sleep:'
+  m_Text: Money
 --- !u!222 &1494403744
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2495,7 +2486,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.43, y: -0.2}
+  m_AnchoredPosition: {x: 0.37, y: -0.2}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1641415622
@@ -3428,7 +3419,7 @@ GameObject:
   - component: {fileID: 2121323052}
   - component: {fileID: 2121323051}
   m_Layer: 5
-  m_Name: SleepValue
+  m_Name: MoneyValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3450,7 +3441,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.43, y: -0.55}
+  m_AnchoredPosition: {x: 0.37, y: -0.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2121323051

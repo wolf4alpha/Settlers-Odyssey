@@ -5,42 +5,39 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
-
-    
-    public int maxHp;
-    public int maxSleep;
-    public int maxFood;
+  
+    public int maxEnergy;
     public int maxHunger;
+    public int maxMoney;
 
-    [SerializeField]
-    private int currentHealth;
-    [SerializeField]
-    private int currentSleep;
-    [SerializeField]
-    private int currentHunger;
+    public int energy { get; private set; }
+    public int hunger { get; private set; }
+    public int money { get; private set; }
 
-    public int currentEnergy; 
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHp;  
-        currentSleep = maxSleep;
-        currentHunger = maxHunger;
+        //energy = maxEnergy;
+        //hunger = maxHunger;
+        //money = 0;
+        
+        // go to eat state
+        energy = 100;
+        hunger = 0;
+        money = 900;
     }
 
     void TakeDamage()
     {
-        currentHealth -= 1;
+       // currentHealth -= 1;
     }
 
-    public void addHunger(int _hunger) { currentHunger += _hunger; }
+    public void addHunger(int _hunger) { hunger += _hunger; }
 
-    public void removeHunger(int _hunger) { currentHunger -= _hunger; }
+    public void removeHunger(int _hunger) { hunger -= _hunger; }
 
-    public void AddSleep(int _sleep) { currentSleep += _sleep; }
-    public void removeSleep(int _sleep) { currentSleep -= _sleep; }
-    public int getSleep() { return currentSleep; }
-    public int getHunger() { return currentHunger; }
-
+    public void AddEnergy(int _sleep) { energy += _sleep; }
+    public void RemoveEnergy(int _sleep) { energy -= _sleep; }
     
+
 }

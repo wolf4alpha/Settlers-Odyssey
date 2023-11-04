@@ -5,8 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "HungerConsideration", menuName = "UtilityAI/Considerations/Hunger Consideration")]
 public class HungerConsideration : Consideration
 {
-    public override float ScoreConsideration()
+    [SerializeField]
+    private AnimationCurve responseCurve;
+    public override float ScoreConsideration(Villager villager)
     {
-        return 0.2f;
+        score = responseCurve.Evaluate(Mathf.Clamp01(villager.stats.hunger / 100f));
+        Debug.Log("hunger: " + score);
+        return score;
     }
 }

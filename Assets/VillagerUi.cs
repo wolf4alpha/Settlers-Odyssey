@@ -8,8 +8,9 @@ public class VillagerUi : MonoBehaviour
     public Camera cam;
 
     public Text hungerText;
-    public Text sleepText;
+    public Text energyText;
     public Text stateText;
+    public Text moneyText;
     public Text actionText;
 
     public Villager villager;
@@ -26,8 +27,10 @@ public class VillagerUi : MonoBehaviour
     {
         
         canvas.transform.forward = cam.transform.forward;
-        sleepText.text = villager.characterStats.getSleep().ToString();
-        hungerText.text = villager.characterStats.getHunger().ToString();
+        energyText.text = villager.stats.energy.ToString();
+        hungerText.text = villager.stats.hunger.ToString();
+        moneyText.text = villager.stats.money.ToString();
+
         stateText.text = villager.stateMachine.currentState.ToString();
         actionText.text = villager.currentAction;
     }

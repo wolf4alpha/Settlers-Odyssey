@@ -7,7 +7,7 @@ public class sleep : Action
 {
     public override void Execute(Villager villager)
     {
-        villager.DoSleep(3);
+        villager.DoSleep(5);
     }
 
 

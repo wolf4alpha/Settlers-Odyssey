@@ -22,5 +22,5 @@ public abstract class Consideration : ScriptableObject
         score = 0;
     }
 
-    public abstract float ScoreConsideration();
+    public abstract float ScoreConsideration(Villager villager);
 }

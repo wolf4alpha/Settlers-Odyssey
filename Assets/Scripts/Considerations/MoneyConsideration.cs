@@ -6,8 +6,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MoneyConsideration", menuName = "UtilityAI/Considerations/Money Consideration")]
 public class MoneyConsideration : Consideration
 {
-    public override float ScoreConsideration()
+    [SerializeField]
+    private AnimationCurve responseCurve;
+    public override float ScoreConsideration(Villager villager)
     {
-        return 0.1f;
+        score = responseCurve.Evaluate(Mathf.Clamp01(villager.stats.money / villager.stats.maxMoney));
+        Debug.Log("money: " + score);
+        return score;
     }
 }

@@ -7,7 +7,7 @@ public class work : Action
 {
     public override void Execute( Villager villager)
     {
-        villager.DoWork(3);
+        villager.DoWork(5);
     }
 
 

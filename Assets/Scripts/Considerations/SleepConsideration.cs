@@ -1,13 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SleepConsideration", menuName = "UtilityAI/Considerations/Sleep Consideration")]
 public class SleepConsideration : Consideration
 {
-    public override float ScoreConsideration()
+    [SerializeField]
+    private AnimationCurve responseCurve;
+    public override float ScoreConsideration(Villager villager)
     {
-        return 0.1f;
+        score = responseCurve.Evaluate(Mathf.Clamp01(villager.stats.energy / 100f));
+        Debug.Log("sleep: "+score);
+        return score;
     }
 }
 

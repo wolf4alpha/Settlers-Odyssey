@@ -43,22 +43,23 @@ public class VillagerBrain : MonoBehaviour
         float score = 1f;
         for (int i = 0; i < action.considerations.Length; i++)
         {
-            float considerationScore = action.considerations[i].ScoreConsideration();
+            float considerationScore = action.considerations[i].ScoreConsideration(villager);
+           // Debug.Log("considerationScore: " +considerationScore);
             score *= considerationScore;
-
-            if(score == 0f)
+            
+            if (score == 0f)
             {
                 action.score = 0;
                 return action.score;
             }
         }
-
+        
         float originalScore = score;
         float modFactor = 1 - (1 / action.considerations.Length);
         float makeupValue = (1 - originalScore) * modFactor;
         action.score = originalScore + (makeupValue * originalScore);
         
-        Debug.Log("Action: " + action.name + "got: " + action.score);
+        //Debug.Log("Action: " + action.name + "score: " + action.score);
         
         return action.score;
 

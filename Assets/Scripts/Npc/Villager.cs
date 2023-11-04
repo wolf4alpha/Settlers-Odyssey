@@ -13,7 +13,7 @@ public class Villager : MonoBehaviour
     public VillagerEatState eatState { get; private set; }
     #endregion
     public Animator animator { get; private set; }
-    public CharacterStats characterStats { get; private set; }
+    public CharacterStats stats { get; private set; }
     public VillagerBrain brain { get; private set; }
 
     
@@ -38,7 +38,7 @@ public class Villager : MonoBehaviour
         eatState = new VillagerEatState(this, stateMachine, "eat");
 
 
-        characterStats = GetComponent<CharacterStats>();
+        stats = GetComponent<CharacterStats>();
        
         moveController = GetComponent<MoveController>();
     }
@@ -48,7 +48,7 @@ public class Villager : MonoBehaviour
         animator = GetComponent<Animator>();
         stateMachine.Initialize(idleState);
         brain = GetComponent<VillagerBrain>();
-  
+        stats.maxEnergy = 100;
     }
 
     private void FixedUpdate()
@@ -60,21 +60,14 @@ public class Villager : MonoBehaviour
             currentAction = brain.bestAction.Name;
         }
 
-        UpdateStats();
+   
     }
-
-    private void UpdateStats()
-    {
-        
-    }
-
-    
+   
 
     //coroutine
 
     public void DoWork(int time)
     {
-        Debug.Log("i go to work");
         stateMachine.ChangeState(workState);
         StartCoroutine(WorkCoroutine(time));
     }
@@ -102,10 +95,14 @@ public class Villager : MonoBehaviour
         while (counter > 0)
         {
             yield return new WaitForSeconds(1);
+            stats.RemoveEnergy(4);
+            stats.removeHunger(2);
             counter--;
         }
 
         Debug.Log("i harvested 1 ressource");
+
+
         OnFinishedAction();
     }
 
@@ -118,7 +115,9 @@ public class Villager : MonoBehaviour
             counter--;
         }
 
-        Debug.Log("i got 1 Energy from sleep");
+        Debug.Log("i got 100 Energy, lost 15 Hunger from sleep");
+        stats.AddEnergy(100);
+        stats.removeHunger(15);
         OnFinishedAction();
     }
 
@@ -131,7 +130,8 @@ public class Villager : MonoBehaviour
             counter--;
         }
 
-        Debug.Log("i got 1 Hunger from eat");
+        Debug.Log("i got 50 Hunger from eat");
+        stats.addHunger(50);
         OnFinishedAction();
     }
 
