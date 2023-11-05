@@ -8,7 +8,7 @@ public class SleepConsideration : Consideration
     public override float ScoreConsideration(Villager villager)
     {
         score = responseCurve.Evaluate(Mathf.Clamp01(villager.stats.energy / 100f));
-        Debug.Log("sleep: "+score);
+      //  Debug.Log("sleep: "+score);
         return score;
     }
 }

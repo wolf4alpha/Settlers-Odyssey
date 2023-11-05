@@ -3,7 +3,10 @@ using UnityEngine;
 
 public class VillagerBrain : MonoBehaviour
 {
+
+    public Action[] actionsAvailable;
     public Action bestAction {  get; set; }
+
     public bool finishedDeciding {  get; set; }
 
     private Villager villager;
@@ -17,11 +20,11 @@ public class VillagerBrain : MonoBehaviour
     void Update()
     {
         if(bestAction is null) {
-            DecideBestAction(villager.actionsAvailable);
+            DecideBestAction();
         }
     }
 
-    public void DecideBestAction(Action[] actionsAvailable)
+    public void DecideBestAction()
     {
         float score = 0f;
         int nextBestActionIndex = 0;

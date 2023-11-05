@@ -1,5 +1,5 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class VillagerWorkState : VillagerState
 {
@@ -11,6 +11,7 @@ public class VillagerWorkState : VillagerState
 
     public override void Enter()
     {
+        Debug.Log("enter work state");
     }
 
     public override void Exit()
@@ -20,6 +21,14 @@ public class VillagerWorkState : VillagerState
 
     public override void Update()
     {
+        if(villager.currentAction == null)
+        {
+           villager.DoWork(5);
+        }
+
         base.Update();
+       
     }
+    
 }
+

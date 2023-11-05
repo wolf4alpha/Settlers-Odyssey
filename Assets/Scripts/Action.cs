@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Action : ScriptableObject
@@ -17,6 +15,8 @@ public abstract class Action : ScriptableObject
     }
 
     public Consideration[] considerations;
+    
+    public Transform RequiredDestination;
 
     public virtual void Awake()
     {
@@ -24,4 +24,6 @@ public abstract class Action : ScriptableObject
     }
 
     public abstract void Execute(Villager villager); 
+    
+    public abstract void SetDestination(Villager villager);
 }

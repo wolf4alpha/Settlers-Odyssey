@@ -1,11 +1,12 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 
 public class Villager : MonoBehaviour
 {
     #region states
-    public VillagerStateMachine stateMachine {  get; private set; }
+    public VillagerStateMachine stateMachine { get; private set; }
     public VillagerIdleState idleState { get; private set; }
     public VillagerMoveState moveState { get; private set; }
     public VillagerWorkState workState { get; private set; }
@@ -16,10 +17,16 @@ public class Villager : MonoBehaviour
     public CharacterStats stats { get; private set; }
     public VillagerBrain brain { get; private set; }
 
-    
+
     public MoveController moveController { get; private set; }
 
-    public Action[] actionsAvailable;
+    public Dictionary<string, GameObject> destinations;
+
+    private GameObject workDestination;
+    private GameObject sleepDestination;
+    private GameObject eatDestination;
+
+
 
     #region Debug
     public string currentAction;
@@ -30,7 +37,7 @@ public class Villager : MonoBehaviour
     {
 
         stateMachine = new VillagerStateMachine();
-        
+
         idleState = new VillagerIdleState(this, stateMachine, "idle");
         moveState = new VillagerMoveState(this, stateMachine, "walk");
         workState = new VillagerWorkState(this, stateMachine, "work");
@@ -39,7 +46,7 @@ public class Villager : MonoBehaviour
 
 
         stats = GetComponent<CharacterStats>();
-       
+
         moveController = GetComponent<MoveController>();
     }
 
@@ -49,26 +56,58 @@ public class Villager : MonoBehaviour
         stateMachine.Initialize(idleState);
         brain = GetComponent<VillagerBrain>();
         stats.maxEnergy = 100;
+        workDestination = GameObject.Find("WorkDestination");
+        sleepDestination = GameObject.Find("SleepDestination");
+        eatDestination = GameObject.Find("EatDestination");
+
+
+        destinations = new Dictionary<string, GameObject>
+        {
+            { "work", workDestination },
+            { "sleep", sleepDestination },
+            { "eat", eatDestination }
+        };
+
+
+        
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
+
         stateMachine.currentState.Update();
-        if(brain.finishedDeciding == true) {
-            brain.finishedDeciding = false;
-            brain.bestAction.Execute(this);
-            currentAction = brain.bestAction.Name;
+        //if (brain.finishedDeciding == true)
+        //{
+        //    brain.finishedDeciding = false;
+        //    brain.bestAction.Execute(this);
+        //    currentAction = brain.bestAction.Name;
+        //}
+
+        if(stateMachine.currentState == workState)
+        {
+            DoWork(5);
+        }
+        else if (stateMachine.currentState == sleepState)
+        {
+            currentAction = "sleep";
+        }
+        else if (stateMachine.currentState == eatState)
+        {
+            currentAction = "eat";
+        }
+        else
+        {
+            currentAction = "idle";
         }
 
-   
     }
-   
+
 
     //coroutine
 
     public void DoWork(int time)
     {
-        stateMachine.ChangeState(workState);
+        currentAction = "work";
         StartCoroutine(WorkCoroutine(time));
     }
 
@@ -86,8 +125,10 @@ public class Villager : MonoBehaviour
 
     public void OnFinishedAction()
     {
-        brain.DecideBestAction(actionsAvailable);
-    } 
+        brain.DecideBestAction();
+        currentAction = null;
+        //go back to idle state
+    }
 
     IEnumerator WorkCoroutine(int time)
     {

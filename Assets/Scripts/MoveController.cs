@@ -27,5 +27,10 @@ public class MoveController : MonoBehaviour
     {
         agent.destination = position;
     }
+
+    public float RemainingDistance()
+    {
+        return agent.remainingDistance;
+    }
 }
     

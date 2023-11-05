@@ -10,5 +10,9 @@ public class sleep : Action
         villager.DoSleep(5);
     }
 
-
+    public override void SetDestination(Villager villager)
+    {
+        RequiredDestination = villager.destinations["sleep"].transform;
+        Debug.Log("sleep destination set" + RequiredDestination);
+    }
 }

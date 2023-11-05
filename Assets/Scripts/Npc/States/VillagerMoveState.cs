@@ -16,8 +16,9 @@ public class VillagerMoveState : VillagerState
         base.Enter();
         destination = GameObject.FindGameObjectWithTag("Destination");
         ground = GameObject.FindGameObjectWithTag("Ground");
-      //  agent = ground.GetComponentInChildren<NavMeshAgent>();
-      //  agent.SetDestination(destination.transform.position);
+        
+        
+        villager.moveController.MoveTo(villager.brain.bestAction.RequiredDestination.position);
     }
 
     public override void Exit()
@@ -28,13 +29,11 @@ public class VillagerMoveState : VillagerState
     public override void Update()
     {
         base.Update();
-        
-        //villager.characterStats.removeEnergy(1);
 
-        //if (agent.remainingDistance < 1) 
-        //{
-        //    villager.stateMachine.ChangeState(villager.idleState);
-        //}
+        if (villager.moveController.RemainingDistance() < 2) 
+        {
+            villager.stateMachine.ChangeState(villager.idleState);
+        }
 
     }
 }

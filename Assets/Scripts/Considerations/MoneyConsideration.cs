@@ -11,7 +11,7 @@ public class MoneyConsideration : Consideration
     public override float ScoreConsideration(Villager villager)
     {
         score = responseCurve.Evaluate(Mathf.Clamp01(villager.stats.money / villager.stats.maxMoney));
-        Debug.Log("money: " + score);
+        //Debug.Log("money: " + score);
         return score;
     }
 }
