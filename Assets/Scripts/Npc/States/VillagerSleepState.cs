@@ -14,6 +14,7 @@ public class VillagerSleepState : VillagerState
     public override void Enter()
     {
         base.Enter();
+        villager.DoSleep(4);
     }
 
     public override void Exit()

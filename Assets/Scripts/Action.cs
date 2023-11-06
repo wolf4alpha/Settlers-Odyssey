@@ -3,6 +3,7 @@ using UnityEngine;
 public abstract class Action : ScriptableObject
 {
     public string Name;
+    public string fsmState;
     private float _score;
 
     public float score

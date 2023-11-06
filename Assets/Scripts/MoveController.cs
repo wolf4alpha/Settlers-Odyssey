@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,20 +5,21 @@ public class MoveController : MonoBehaviour
 {
     private NavMeshAgent agent;
 
-    public MoveController()
+    private void Awake()
     {
-        agent = new NavMeshAgent();
+        Debug.Log("move controller awake");
     }
-
     void Start()
     {
+        Debug.Log("move controller start");
         agent = GetComponent<NavMeshAgent>();
-
+        if (agent == null)
+            Debug.LogError("NavMeshAgent component not found");
     }
 
     private void Update()
     {
-    
+
     }
 
     public void MoveTo(Vector3 position)
@@ -30,7 +29,12 @@ public class MoveController : MonoBehaviour
 
     public float RemainingDistance()
     {
+        if (agent.pathPending)
+        {
+            return 100f;
+        }
+        
         return agent.remainingDistance;
     }
 }
-    
+

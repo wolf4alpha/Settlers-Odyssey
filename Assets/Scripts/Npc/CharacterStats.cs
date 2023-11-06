@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
@@ -22,9 +19,15 @@ public class CharacterStats : MonoBehaviour
         //money = 0;
         
         // go to eat state
-        energy = 100;
-        hunger = 0;
-        money = 900;
+        
+        //generate random stats
+        energy = Random.Range(0, maxEnergy);
+        hunger = Random.Range(0, maxHunger);
+        money = Random.Range(0, maxMoney);
+
+        //energy = 100;
+        //hunger = 0;
+        //money = 900;
     }
 
     void TakeDamage()

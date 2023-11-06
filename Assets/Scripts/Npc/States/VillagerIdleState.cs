@@ -1,5 +1,3 @@
-using System;
-using Unity;
 using UnityEngine;
 
 public class VillagerIdleState : VillagerState
@@ -12,6 +10,7 @@ public class VillagerIdleState : VillagerState
     public override void Enter()
     {
         base.Enter();
+        villager.currentAction = null;
     }
 
     public override void Exit()
@@ -24,21 +23,40 @@ public class VillagerIdleState : VillagerState
         base.Update();
 
         villager.brain.DecideBestAction();
-        
-        //meh
+        Debug.Log("best action: " + villager.brain.bestAction.name);
+
+        // find nearest destination in future
         villager.brain.bestAction.SetDestination(villager);
+
         villager.moveController.MoveTo(villager.brain.bestAction.RequiredDestination.position);
+
 
         if (villager.moveController.RemainingDistance() < 2f)
         {
-            Debug.Log("reached destination distance: "+ villager.moveController.RemainingDistance());
-            stateMachine.ChangeState(villager.workState);
+           
+            Debug.Log("villager.brain.bestAction.name: " + villager.brain.bestAction.name);
+            if (villager.brain.bestAction.name == "Eat")
+            {
+                Debug.Log("change state to eat");
+                stateMachine.ChangeState(villager.eatState);
+            }
+
+            if (villager.brain.bestAction.name == "Work")
+            {
+                Debug.Log("change state to work");
+                stateMachine.ChangeState(villager.workState);
+            }
+
+            if (villager.brain.bestAction.name == "Sleep")
+            {
+                Debug.Log("change state to sleep");
+                stateMachine.ChangeState(villager.sleepState);
+            }
+
         }
         else
         {
-            Debug.Log("move to destination");
             villager.stateMachine.ChangeState(villager.moveState);
         }
-
     }
 }

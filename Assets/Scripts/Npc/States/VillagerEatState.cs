@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Video;
 
 public class VillagerEatState : VillagerState
 {
@@ -13,7 +14,7 @@ public class VillagerEatState : VillagerState
 
     public override void Enter()
     {
-
+        villager.DoEating(3);
     }
 
     public override void Exit()

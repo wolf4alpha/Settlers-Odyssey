@@ -19,9 +19,9 @@ public class VillagerBrain : MonoBehaviour
 
     void Update()
     {
-        if(bestAction is null) {
-            DecideBestAction();
-        }
+        //if(bestAction is null) {
+        //    DecideBestAction();
+        //}
     }
 
     public void DecideBestAction()

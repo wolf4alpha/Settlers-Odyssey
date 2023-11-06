@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 
@@ -8,6 +9,8 @@ public class NewBehaviourScript : MonoBehaviour
     private InputAction movement;
     private Transform cameraTransform;
 
+    //debug
+    public Villager villager;
 
     
     [SerializeField]
@@ -55,6 +58,9 @@ public class NewBehaviourScript : MonoBehaviour
         Application.targetFrameRate = 45;
         cameraActions = new CameraController();
         cameraTransform = this.GetComponentInChildren<Camera>().transform;
+
+        //debug
+        //villager = GameObject.Find("Nadine").GetComponent<Villager>();
     }
 
     private void OnEnable()
@@ -81,13 +87,16 @@ public class NewBehaviourScript : MonoBehaviour
     {
         //inputs
         GetKeyboardMovement();
-     //   CheckMouseAtScreenEdge();
+        CheckMouseAtScreenEdge();
         DragCamera();
 
-        //move base and camera objects
-        UpdateVelocity();
-        UpdateBasePosition();
+      //move base and camera objects
+       UpdateVelocity();
+       
         UpdateCameraPosition();
+        //cameraTransform.position = villager.transform.position + new Vector3(0f, 3f, -3f);
+        //cameraTransform.LookAt(villager.transform.position);
+        //cameraTransform.RotateAround(villager.transform.position, Vector3.up, 180f);
     }
 
     private void UpdateVelocity()

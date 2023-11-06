@@ -15,12 +15,12 @@ public class Villager : MonoBehaviour
     #endregion
     public Animator animator { get; private set; }
     public CharacterStats stats { get; private set; }
-    public VillagerBrain brain { get; private set; }
-
+   
+    public Dictionary<string, GameObject> destinations;
 
     public MoveController moveController { get; private set; }
+    public VillagerBrain brain { get; private set; }
 
-    public Dictionary<string, GameObject> destinations;
 
     private GameObject workDestination;
     private GameObject sleepDestination;
@@ -48,18 +48,19 @@ public class Villager : MonoBehaviour
         stats = GetComponent<CharacterStats>();
 
         moveController = GetComponent<MoveController>();
-    }
+      
+    }  
 
     private void Start()
     {
         animator = GetComponent<Animator>();
-        stateMachine.Initialize(idleState);
+        
         brain = GetComponent<VillagerBrain>();
         stats.maxEnergy = 100;
         workDestination = GameObject.Find("WorkDestination");
         sleepDestination = GameObject.Find("SleepDestination");
         eatDestination = GameObject.Find("EatDestination");
-
+        stateMachine.Initialize(idleState);
 
         destinations = new Dictionary<string, GameObject>
         {
@@ -74,32 +75,7 @@ public class Villager : MonoBehaviour
 
     private void Update()
     {
-
         stateMachine.currentState.Update();
-        //if (brain.finishedDeciding == true)
-        //{
-        //    brain.finishedDeciding = false;
-        //    brain.bestAction.Execute(this);
-        //    currentAction = brain.bestAction.Name;
-        //}
-
-        if(stateMachine.currentState == workState)
-        {
-            DoWork(5);
-        }
-        else if (stateMachine.currentState == sleepState)
-        {
-            currentAction = "sleep";
-        }
-        else if (stateMachine.currentState == eatState)
-        {
-            currentAction = "eat";
-        }
-        else
-        {
-            currentAction = "idle";
-        }
-
     }
 
 
@@ -107,26 +83,24 @@ public class Villager : MonoBehaviour
 
     public void DoWork(int time)
     {
-        currentAction = "work";
         StartCoroutine(WorkCoroutine(time));
     }
 
     public void DoSleep(int time)
     {
-        this.stateMachine.ChangeState(sleepState);
         StartCoroutine(SleepCoroutine(time));
     }
 
-    public void DoEat(int time)
+    public void DoEating(int time)
     {
-        this.stateMachine.ChangeState(sleepState);
         StartCoroutine(EatCoroutine(time));
     }
 
     public void OnFinishedAction()
     {
-        brain.DecideBestAction();
-        currentAction = null;
+        Debug.Log("finished action");
+        stateMachine.ChangeState(idleState);
+        
         //go back to idle state
     }
 
@@ -136,8 +110,8 @@ public class Villager : MonoBehaviour
         while (counter > 0)
         {
             yield return new WaitForSeconds(1);
-            stats.RemoveEnergy(4);
-            stats.removeHunger(2);
+            stats.RemoveEnergy(9);
+            stats.removeHunger(4);
             counter--;
         }
 
@@ -156,14 +130,16 @@ public class Villager : MonoBehaviour
             counter--;
         }
 
-        Debug.Log("i got 100 Energy, lost 15 Hunger from sleep");
-        stats.AddEnergy(100);
-        stats.removeHunger(15);
+        Debug.Log("i got 100 Energy, lost 10 Hunger from sleep");
+        stats.AddEnergy(70);
+        stats.removeHunger(2);
         OnFinishedAction();
     }
 
     IEnumerator EatCoroutine(int time)
     {
+       Debug.Log("i am eating");
+        
         int counter = time;
         while (counter > 0)
         {
