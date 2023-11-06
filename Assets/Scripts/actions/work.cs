@@ -11,6 +11,6 @@ public class work : Action
 
     public override void SetDestination(Villager villager)
     {
-        RequiredDestination = villager.destinations["work"].transform;
+       // RequiredDestination = villager.transform;
     }
 }

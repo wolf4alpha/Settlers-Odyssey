@@ -87,12 +87,12 @@ public class NewBehaviourScript : MonoBehaviour
     {
         //inputs
         GetKeyboardMovement();
-        CheckMouseAtScreenEdge();
+       // CheckMouseAtScreenEdge();
         DragCamera();
 
-      //move base and camera objects
-       UpdateVelocity();
-       
+       //move base and camera objects
+        UpdateVelocity();
+        UpdateBasePosition();
         UpdateCameraPosition();
         //cameraTransform.position = villager.transform.position + new Vector3(0f, 3f, -3f);
         //cameraTransform.LookAt(villager.transform.position);

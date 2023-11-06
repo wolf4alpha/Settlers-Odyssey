@@ -14,11 +14,6 @@ public class VillagerMoveState : VillagerState
     public override void Enter()
     {
         base.Enter();
-        destination = GameObject.FindGameObjectWithTag("Destination");
-        ground = GameObject.FindGameObjectWithTag("Ground");
-        
-        
-        villager.moveController.MoveTo(villager.brain.bestAction.RequiredDestination.position);
     }
 
     public override void Exit()

@@ -61,16 +61,7 @@ public class Villager : MonoBehaviour
         sleepDestination = GameObject.Find("SleepDestination");
         eatDestination = GameObject.Find("EatDestination");
         stateMachine.Initialize(idleState);
-
-        destinations = new Dictionary<string, GameObject>
-        {
-            { "work", workDestination },
-            { "sleep", sleepDestination },
-            { "eat", eatDestination }
-        };
-
-
-        
+                  
     }
 
     private void Update()
@@ -98,10 +89,7 @@ public class Villager : MonoBehaviour
 
     public void OnFinishedAction()
     {
-        Debug.Log("finished action");
         stateMachine.ChangeState(idleState);
-        
-        //go back to idle state
     }
 
     IEnumerator WorkCoroutine(int time)
@@ -130,16 +118,15 @@ public class Villager : MonoBehaviour
             counter--;
         }
 
-        Debug.Log("i got 100 Energy, lost 10 Hunger from sleep");
+        Debug.Log("i got 70 Energy, lost 5 Hunger from sleep");
         stats.AddEnergy(70);
-        stats.removeHunger(2);
+        stats.removeHunger(5);
         OnFinishedAction();
     }
 
     IEnumerator EatCoroutine(int time)
     {
-       Debug.Log("i am eating");
-        
+
         int counter = time;
         while (counter > 0)
         {

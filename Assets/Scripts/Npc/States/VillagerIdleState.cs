@@ -23,33 +23,29 @@ public class VillagerIdleState : VillagerState
         base.Update();
 
         villager.brain.DecideBestAction();
-        Debug.Log("best action: " + villager.brain.bestAction.name);
 
         // find nearest destination in future
-        villager.brain.bestAction.SetDestination(villager);
-
-        villager.moveController.MoveTo(villager.brain.bestAction.RequiredDestination.position);
-
+        findNearestActionDestination();
 
         if (villager.moveController.RemainingDistance() < 2f)
         {
-           
-            Debug.Log("villager.brain.bestAction.name: " + villager.brain.bestAction.name);
+
+
             if (villager.brain.bestAction.name == "Eat")
             {
-                Debug.Log("change state to eat");
+                //    Debug.Log("change state to eat");
                 stateMachine.ChangeState(villager.eatState);
             }
 
             if (villager.brain.bestAction.name == "Work")
             {
-                Debug.Log("change state to work");
+                //    Debug.Log("change state to work");
                 stateMachine.ChangeState(villager.workState);
             }
 
             if (villager.brain.bestAction.name == "Sleep")
             {
-                Debug.Log("change state to sleep");
+                //    Debug.Log("change state to sleep");
                 stateMachine.ChangeState(villager.sleepState);
             }
 
@@ -58,5 +54,27 @@ public class VillagerIdleState : VillagerState
         {
             villager.stateMachine.ChangeState(villager.moveState);
         }
+    }
+
+    private void findNearestActionDestination()
+    {
+        var nearestDistance = Mathf.Infinity;
+        Properties nearestProperty = null;
+
+        foreach (Properties property in Object.FindObjectsOfType<Properties>())
+        {
+            if (property.Action == villager.brain.bestAction.name)
+            {
+
+                float distance = Vector3.Distance(property.transform.position, villager.transform.position);
+                if (distance < nearestDistance)
+                {
+                    nearestDistance = distance;
+                    nearestProperty = property;
+                }
+            }
+        }
+        Debug.Log("nearest property selected: " + nearestProperty.name + "with distance: " + nearestDistance);
+        villager.moveController.MoveTo(nearestProperty.transform.position);
     }
 }
