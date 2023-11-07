@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,20 +14,13 @@ public class Villager : MonoBehaviour
     public VillagerSleepState sleepState { get; private set; }
     public VillagerEatState eatState { get; private set; }
     #endregion
-    public Animator animator { get; private set; }
-    public CharacterStats stats { get; private set; }
-   
-    public Dictionary<string, GameObject> destinations;
 
+    public Animator animator { get; private set; }
+    public CharacterStats stats { get; private set; }   
     public MoveController moveController { get; private set; }
     public VillagerBrain brain { get; private set; }
 
-
-    private GameObject workDestination;
-    private GameObject sleepDestination;
-    private GameObject eatDestination;
-
-
+    public GameObject destination;
 
     #region Debug
     public string currentAction;
@@ -57,9 +51,6 @@ public class Villager : MonoBehaviour
         
         brain = GetComponent<VillagerBrain>();
         stats.maxEnergy = 100;
-        workDestination = GameObject.Find("WorkDestination");
-        sleepDestination = GameObject.Find("SleepDestination");
-        eatDestination = GameObject.Find("EatDestination");
         stateMachine.Initialize(idleState);
                   
     }
@@ -67,6 +58,7 @@ public class Villager : MonoBehaviour
     private void Update()
     {
         stateMachine.currentState.Update();
+        currentAction = stateMachine.currentState.ToString();
     }
 
 
@@ -74,22 +66,28 @@ public class Villager : MonoBehaviour
 
     public void DoWork(int time)
     {
+        // AssignVilager should get the villager to assing the place where he is working
+        //So the villager will have place and the place will have the villager
+        destination.GetComponentInParent<Properties>().AssingVillager();
         StartCoroutine(WorkCoroutine(time));
     }
 
     public void DoSleep(int time)
     {
+        destination.GetComponentInParent<Properties>().AssingVillager();
         StartCoroutine(SleepCoroutine(time));
     }
 
     public void DoEating(int time)
     {
+        destination.GetComponentInParent<Properties>().AssingVillager();
         StartCoroutine(EatCoroutine(time));
     }
 
     public void OnFinishedAction()
     {
         stateMachine.ChangeState(idleState);
+        destination.GetComponentInParent<Properties>().RemoveVillager();
     }
 
     IEnumerator WorkCoroutine(int time)

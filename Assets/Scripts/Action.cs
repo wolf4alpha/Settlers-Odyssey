@@ -18,13 +18,12 @@ public abstract class Action : ScriptableObject
     public Consideration[] considerations;
     
     public Transform RequiredDestination;
+    public GameObject Target;
+
 
     public virtual void Awake()
     {
         score = 0;
     }
 
-    public abstract void Execute(Villager villager); 
-    
-    public abstract void SetDestination(Villager villager);
 }

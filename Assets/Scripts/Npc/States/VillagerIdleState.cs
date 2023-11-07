@@ -65,16 +65,20 @@ public class VillagerIdleState : VillagerState
         {
             if (property.Action == villager.brain.bestAction.name)
             {
-
-                float distance = Vector3.Distance(property.transform.position, villager.transform.position);
-                if (distance < nearestDistance)
-                {
-                    nearestDistance = distance;
-                    nearestProperty = property;
+                if(property._currentVillagers < property._maxVillagers) { 
+                    float distance = Vector3.Distance(property.transform.position, villager.transform.position);
+                    if (distance < nearestDistance)
+                    {
+                        nearestDistance = distance;
+                        nearestProperty = property;
+                    }
                 }
             }
         }
-        Debug.Log("nearest property selected: " + nearestProperty.name + "with distance: " + nearestDistance);
+        
+        
+        Debug.Log("nearest property selected: " + nearestProperty?.name + "with distance: " + nearestDistance);
+        villager.destination = nearestProperty.gameObject;
         villager.moveController.MoveTo(nearestProperty.transform.position);
     }
 }

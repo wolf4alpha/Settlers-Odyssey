@@ -25,7 +25,11 @@ public class VillagerUi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //if key "H" is pressed, toggle the canvas
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            canvas.enabled = !canvas.enabled;
+        }
         canvas.transform.forward = cam.transform.forward;
         energyText.text = villager.stats.energy.ToString();
         hungerText.text = villager.stats.hunger.ToString();
