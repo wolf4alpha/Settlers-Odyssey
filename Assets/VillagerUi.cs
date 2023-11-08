@@ -13,6 +13,8 @@ public class VillagerUi : MonoBehaviour
     public Text moneyText;
     public Text actionText;
 
+    public Text inventoryText;
+
     public Villager villager;
 
     
@@ -37,5 +39,8 @@ public class VillagerUi : MonoBehaviour
 
         stateText.text = villager.stateMachine.currentState.ToString();
         actionText.text = villager.currentAction;
+        inventoryText.text = villager.inventory.items[0].Name + " " + villager.inventory.items[0].Amount+
+                            "\n" + villager.inventory.items[1].Name + " " + villager.inventory.items[1].Amount +
+                           "\n" + villager.inventory.items[2].Name + " " + villager.inventory.items[2].Amount;
     }
 }

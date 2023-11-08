@@ -24,8 +24,23 @@ public class VillagerMoveState : VillagerState
     public override void Update()
     {
         base.Update();
+        if(villager.currentAction == "Move to base")
+        {
+           
+            if (villager.moveController.RemainingDistance() < 2)
+            {
+                Debug.Log("reached base!");
+                villager.inventory.RemoveItem(0, 5);
+                villager.brain.bestAction.RequiredDestination.GetComponent<InventoryManager>().AddItem(0, 5);
+                Debug.Log("added 5 Wood to Base");
+                villager.stateMachine.ChangeState(villager.idleState);
+                
+            }
+        }
 
-        if (villager.moveController.RemainingDistance() < 2) 
+       
+
+        if (villager.moveController.RemainingDistance() < 2 && villager.currentAction!="Move to base") 
         {
             villager.stateMachine.ChangeState(villager.idleState);
         }

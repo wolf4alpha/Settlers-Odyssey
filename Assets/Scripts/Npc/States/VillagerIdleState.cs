@@ -77,8 +77,17 @@ public class VillagerIdleState : VillagerState
         }
         
         
-        Debug.Log("nearest property selected: " + nearestProperty?.name + "with distance: " + nearestDistance);
-        villager.destination = nearestProperty.gameObject;
-        villager.moveController.MoveTo(nearestProperty.transform.position);
+  
+        if (nearestProperty != null)
+        {
+            Debug.Log("nearest property selected: " + nearestProperty?.name + "with distance: " + nearestDistance);
+            villager.destination = nearestProperty.gameObject;
+            villager.moveController.MoveTo(nearestProperty.transform.position);
+        }
+        else
+        {
+            Debug.Log("no property found");
+            villager.DoWait(10);
+        }
     }
 }

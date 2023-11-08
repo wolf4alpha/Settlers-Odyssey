@@ -1,22 +1,27 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+
 
 
 public class Properties : MonoBehaviour
 {
 
     [SerializeField]
-    private string _ressourceType;
+    private Item _ressourceType;
+    
+    [SerializeField]
+    private int _maxRessource = 100;
+    [SerializeField]
+    private int _currentRessource = 100;
 
-    public int _maxVillagers  = 4;
 
-    public int _currentVillagers  = 0;
+    public int _maxVillagers = 4;
+
+    public int _currentVillagers = 0;
 
     public string Action;
 
-    public int currentVillagersbla;
+
 
     // Start is called before the first frame update
     void Start()
@@ -39,4 +44,20 @@ public class Properties : MonoBehaviour
     {
         _currentVillagers--;
     }
+
+    public void RemoveRessource(int amount)
+    {
+        _currentRessource -= amount;
+        if (_currentRessource < 0)
+        {
+            _currentRessource = 0;
+            Destroy(gameObject);
+        }
+    }
+
+    public int RessourceID()
+    {
+        return _ressourceType.id;
+    }
+
 }
