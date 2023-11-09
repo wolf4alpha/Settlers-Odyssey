@@ -24,6 +24,7 @@ public class Villager : MonoBehaviour
     public VillagerBrain brain { get; private set; }
 
     public InventoryManager inventory { get; private set; }
+    public InventoryMangerScripableObject inventoryManager;
 
     public GameObject destination;
 
@@ -78,6 +79,8 @@ public class Villager : MonoBehaviour
         int amount = GenerateRandomNumber(6, 12);
         destination.GetComponentInParent<Properties>().RemoveRessource(amount);
         inventory.AddItem(destination.GetComponent<Properties>().RessourceID(), amount);
+        //just for testing
+        inventoryManager.AddWood(amount);
     }
 
     public void DoSleep(int time)
