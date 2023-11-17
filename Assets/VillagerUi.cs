@@ -16,12 +16,12 @@ public class VillagerUi : MonoBehaviour
     public Text inventoryText;
 
     public Villager villager;
-
-    
+ 
    
     // Start is called before the first frame update
     void Start()
     {
+      
     }
 
     // Update is called once per frame
@@ -32,6 +32,7 @@ public class VillagerUi : MonoBehaviour
         {
             canvas.enabled = !canvas.enabled;
         }
+ 
         canvas.transform.forward = cam.transform.forward;
         energyText.text = villager.stats.energy.ToString();
         hungerText.text = villager.stats.hunger.ToString();
@@ -39,8 +40,8 @@ public class VillagerUi : MonoBehaviour
 
         stateText.text = villager.stateMachine.currentState.ToString();
         actionText.text = villager.currentAction;
-        inventoryText.text = villager.inventory.items[0].Name + " " + villager.inventory.items[0].Amount+
-                            "\n" + villager.inventory.items[1].Name + " " + villager.inventory.items[1].Amount +
-                           "\n" + villager.inventory.items[2].Name + " " + villager.inventory.items[2].Amount;
+        //inventoryText.text = villager.inventory.items[0].Name + " " + villager.inventory.items[0].Amount+
+        //                    "\n" + villager.inventory.items[1].Name + " " + villager.inventory.items[1].Amount +
+        //                   "\n" + villager.inventory.items[2].Name + " " + villager.inventory.items[2].Amount;
     }
 }

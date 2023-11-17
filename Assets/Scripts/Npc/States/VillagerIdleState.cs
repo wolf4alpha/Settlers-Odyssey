@@ -82,6 +82,7 @@ public class VillagerIdleState : VillagerState
         {
             Debug.Log("nearest property selected: " + nearestProperty?.name + "with distance: " + nearestDistance);
             villager.destination = nearestProperty.gameObject;
+            villager.destinationProperties = nearestProperty.GetComponent<Properties>();
             villager.moveController.MoveTo(nearestProperty.transform.position);
         }
         else

@@ -1,3 +1,4 @@
+using Assets.Scripts.InventoryManager.InventoryItems;
 using UnityEngine;
 
 
@@ -7,13 +8,12 @@ public class Properties : MonoBehaviour
 {
 
     [SerializeField]
-    private Item _ressourceType;
+    private ItemData _ressourceType;
     
-    [SerializeField]
-    private int _maxRessource = 100;
+   // [SerializeField]
+    //private int _maxRessource = 100;
     [SerializeField]
     private int _currentRessource = 100;
-
 
     public int _maxVillagers = 4;
 
@@ -22,17 +22,9 @@ public class Properties : MonoBehaviour
     public string Action;
 
 
-
-    // Start is called before the first frame update
-    void Start()
+    public ItemData getRessource()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        return _ressourceType;
     }
 
     internal void AssingVillager()
@@ -55,9 +47,6 @@ public class Properties : MonoBehaviour
         }
     }
 
-    public int RessourceID()
-    {
-        return _ressourceType.id;
-    }
+
 
 }

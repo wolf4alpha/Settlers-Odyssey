@@ -1,3 +1,4 @@
+using Assets.Scripts.InventoryManager.InventoryItems;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,10 +24,11 @@ public class Villager : MonoBehaviour
     public MoveController moveController { get; private set; }
     public VillagerBrain brain { get; private set; }
 
-    public InventoryManager inventory { get; private set; }
+    public DynamicInventory inventory { get; private set; }
     public InventoryMangerScripableObject inventoryManager;
 
     public GameObject destination;
+    public Properties destinationProperties;
 
     #region Debug
     public string currentAction;
@@ -46,7 +48,7 @@ public class Villager : MonoBehaviour
 
 
         stats = GetComponent<CharacterStats>();
-        inventory = GetComponent<InventoryManager>();
+        inventory = GetComponent<DynamicInventory>();
         moveController = GetComponent<MoveController>();
        
     }
@@ -74,13 +76,17 @@ public class Villager : MonoBehaviour
     {
         // AssignVilager should get the villager to assing the place where he is working
         //So the villager will have place and the place will have the villager
-        destination.GetComponentInParent<Properties>().AssingVillager();
+        destinationProperties.AssingVillager();
+        
         StartCoroutine(WorkCoroutine(time));
-        int amount = GenerateRandomNumber(6, 12);
-        destination.GetComponentInParent<Properties>().RemoveRessource(amount);
-        inventory.AddItem(destination.GetComponent<Properties>().RessourceID(), amount);
+        
+        destinationProperties.RemoveRessource(1);
+
+       
+
+        inventory.AddItem(destinationProperties.getRessource());
         //just for testing
-        inventoryManager.AddWood(amount);
+       
     }
 
     public void DoSleep(int time)
@@ -121,7 +127,6 @@ public class Villager : MonoBehaviour
         }
 
         Debug.Log("i harvested 1 ressource");
-
 
         OnFinishedAction();
     }

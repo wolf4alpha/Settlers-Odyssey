@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Item", menuName = "GameStuff/Item")]
+[System.Serializable]
 public class Item : MonoBehaviour
 {
     public int id;

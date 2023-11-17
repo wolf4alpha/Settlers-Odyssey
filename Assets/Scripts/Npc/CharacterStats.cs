@@ -14,16 +14,17 @@ public class CharacterStats : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //energy = maxEnergy;
-        //hunger = maxHunger;
-        //money = 0;
+        // work stats
+        energy = 9999;
+        hunger = 9999;
+        money = 0;
         
         // go to eat state
         
         //generate random stats
-        energy = Random.Range(0, maxEnergy);
-        hunger = Random.Range(0, maxHunger);
-        money = Random.Range(0, maxMoney);
+      //  energy = Random.Range(0, maxEnergy);
+      //  hunger = Random.Range(0, maxHunger);
+      //  money = Random.Range(0, maxMoney);
 
         //energy = 100;
         //hunger = 0;

@@ -1,3 +1,5 @@
+using System;
+using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -8,9 +10,16 @@ public class NewBehaviourScript : MonoBehaviour
     private CameraController cameraActions;
     private InputAction movement;
     private Transform cameraTransform;
+    
+    [SerializeField]
+    private Camera followCamera;
+    
+    [SerializeField]
+    private Vector3 followCameraInitalOffset;
+    private Vector3 followCameraPosition;
 
     //debug
-    public Villager villager;
+    public GameObject villager;
 
     
     [SerializeField]
@@ -60,7 +69,7 @@ public class NewBehaviourScript : MonoBehaviour
         cameraTransform = this.GetComponentInChildren<Camera>().transform;
 
         //debug
-        //villager = GameObject.Find("Nadine").GetComponent<Villager>();
+      
     }
 
     private void OnEnable()
@@ -87,16 +96,51 @@ public class NewBehaviourScript : MonoBehaviour
     {
         //inputs
         GetKeyboardMovement();
-       // CheckMouseAtScreenEdge();
+        
+        
+
+        // CheckMouseAtScreenEdge();
         DragCamera();
 
-       //move base and camera objects
+        //move base and camera objects
         UpdateVelocity();
         UpdateBasePosition();
         UpdateCameraPosition();
         //cameraTransform.position = villager.transform.position + new Vector3(0f, 3f, -3f);
         //cameraTransform.LookAt(villager.transform.position);
         //cameraTransform.RotateAround(villager.transform.position, Vector3.up, 180f);
+
+        FollowCameraHandler();
+    }
+
+    private void FollowCameraHandler()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            SwitchCamera();
+        }
+        if(followCamera.enabled)
+        {
+            followCamera.transform.position = villager.transform.position + followCameraInitalOffset;
+            followCamera.transform.LookAt(villager.transform.position);
+        }
+    }
+
+    private void SwitchCamera()
+    {
+        Debug.Log("switch camera");
+        // switch camera
+        if (followCamera.enabled)
+        {
+            followCamera.enabled = false;
+        }
+        else
+        {
+            followCamera.enabled = true;
+        }
+        
+
+            
     }
 
     private void UpdateVelocity()
