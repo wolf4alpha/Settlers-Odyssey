@@ -69,9 +69,7 @@ public class Villager : MonoBehaviour
      //   currentAction = stateMachine.currentState.ToString();
     }
 
-
     //coroutine
-
     public void DoWork(int time)
     {
         // AssignVilager should get the villager to assing the place where he is working
@@ -82,9 +80,10 @@ public class Villager : MonoBehaviour
         
         destinationProperties.RemoveRessource(1);
 
-       
+       //instanciate SO
+       ItemData item = destinationProperties.getRessource();
 
-        inventory.AddItem(destinationProperties.getRessource());
+        inventory.AddItem(new ItemInstance(item));
         //just for testing
        
     }

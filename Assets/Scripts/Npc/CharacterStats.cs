@@ -15,16 +15,16 @@ public class CharacterStats : MonoBehaviour
     void Start()
     {
         // work stats
-        energy = 9999;
-        hunger = 9999;
-        money = 0;
-        
+        //energy = 60;
+        //hunger = 60;
+        //money = 0;
+
         // go to eat state
-        
+
         //generate random stats
-      //  energy = Random.Range(0, maxEnergy);
-      //  hunger = Random.Range(0, maxHunger);
-      //  money = Random.Range(0, maxMoney);
+        energy = Random.Range(0, maxEnergy);
+        hunger = Random.Range(0, maxHunger);
+        money = Random.Range(0, maxMoney);
 
         //energy = 100;
         //hunger = 0;

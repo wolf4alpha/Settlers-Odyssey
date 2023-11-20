@@ -1,39 +1,79 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.TextCore;
 
 public class UIManager : MonoBehaviour
 {
-
-    public int Wood;
     [SerializeField]
-    private Text woodValue;
-    [SerializeField]
-    private Text stoneValue;
-    [SerializeField]
-    private Text foodValue;
+    private GameObject inventoryPanel;
 
     [SerializeField]
-    private InventoryMangerScripableObject inventoryScriptableObject;
+    private RectTransform inventoryContentPanel;
 
-    void Start()
-    {
-        Wood = inventoryScriptableObject.Wood;   
-    }
+    [SerializeField]
+    private UiInventoryItem itemPrefab;
+
+    List<UiInventoryItem> listofUiItems = new List<UiInventoryItem>();
+    private int inventorySize = 10;
+
+    public List<ItemInstance> items = new();
 
     private void OnEnable()
     {
-        inventoryScriptableObject.InventoryChangeEvent.AddListener(ChangeWoodValue);
+        DynamicInventory.OpenInventoryEvent += OpenInventory;
     }
 
     private void OnDisable()
     {
-        inventoryScriptableObject.InventoryChangeEvent.RemoveListener(ChangeWoodValue);
+        DynamicInventory.OpenInventoryEvent -= OpenInventory;
     }
 
-    void ChangeWoodValue(int amount)
+    public void InitializeInventoryUI()
     {
-        woodValue.text = amount.ToString();
+        for (int i = 0; i < inventorySize; i++)
+        {
+            UiInventoryItem uiItem = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
+            uiItem.transform.SetParent(inventoryContentPanel,false) ;
+            listofUiItems.Add(uiItem);
+        }
+    }
+
+    private void OpenInventory(List<ItemInstance> items, PointerEventData arg2)
+    {
+        Debug.Log("open inventory");
+
+        Debug.Log("init inventory");
+        InitializeInventoryUI();
+
+        this.items = items;
+        if (inventoryPanel.activeSelf == true)
+            inventoryPanel.SetActive(false);
+        else
+            inventoryPanel.SetActive(true);
+        if (items != null)
+        {
+            if (items.Count > 0)
+                UpdateItems();
+        }
+
+
+
+    }
+
+    private void UpdateItems()
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            var currentItem = items[i];
+            if (currentItem.itemType != null)
+            {
+                //add to first slot
+                listofUiItems[i].SetData(currentItem.itemType.icon, currentItem.amount);
+            }
+
+        }
+
+
     }
 }
