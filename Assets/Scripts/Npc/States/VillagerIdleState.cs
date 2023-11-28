@@ -59,9 +59,9 @@ public class VillagerIdleState : VillagerState
     private void findNearestActionDestination()
     {
         var nearestDistance = Mathf.Infinity;
-        Properties nearestProperty = null;
+        RessourceProperties nearestProperty = null;
 
-        foreach (Properties property in Object.FindObjectsOfType<Properties>())
+        foreach (RessourceProperties property in Object.FindObjectsOfType<RessourceProperties>())
         {
             if (property.Action == villager.brain.bestAction.name)
             {
@@ -82,7 +82,7 @@ public class VillagerIdleState : VillagerState
         {
             Debug.Log("nearest property selected: " + nearestProperty?.name + "with distance: " + nearestDistance);
             villager.destination = nearestProperty.gameObject;
-            villager.destinationProperties = nearestProperty.GetComponent<Properties>();
+            villager.destinationProperties = nearestProperty.GetComponent<RessourceProperties>();
             villager.moveController.MoveTo(nearestProperty.transform.position);
         }
         else

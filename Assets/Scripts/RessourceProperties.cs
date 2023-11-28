@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-public class Properties : MonoBehaviour
+public class RessourceProperties : MonoBehaviour
 {
 
     [SerializeField]

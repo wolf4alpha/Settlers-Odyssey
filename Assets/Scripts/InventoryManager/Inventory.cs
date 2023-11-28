@@ -5,15 +5,28 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 [CreateAssetMenu]
-public class DynamicInventory : MonoBehaviour, IPointerClickHandler
+public class DynamicInventory : MonoBehaviour
 {
     public int maxItems = 10;
     public int maxItemStack = 5;
     public List<ItemInstance> items = new();
 
-    public static event System.Action<List<ItemInstance>, PointerEventData> OpenInventoryEvent;
+    public static event System.Action<List<ItemInstance>> ChangeInventoryEvent;
 
     public bool AddItem(ItemInstance itemToAdd)
+    {
+
+       if(FindItemAndAdd(itemToAdd) == true)
+       {
+            ChangeInventoryEvent?.Invoke(items);
+            return true;
+       }
+
+       return false;            
+
+    }
+
+    public bool FindItemAndAdd(ItemInstance itemToAdd)
     {
         //find the item in the inventory
         for (int i = 0; i < items.Count; i++)
@@ -31,11 +44,16 @@ public class DynamicInventory : MonoBehaviour, IPointerClickHandler
                 }
             }
         }
-        
-        AddToNextEmptySlot(itemToAdd);
 
+        if (AddToNextEmptySlot(itemToAdd))
+        {
+            return true;
+        }
         Debug.Log("No space in the inventory");
         return false;
+
+
+
     }
 
     private bool AddToNextEmptySlot(ItemInstance itemToAdd)
@@ -60,11 +78,6 @@ public class DynamicInventory : MonoBehaviour, IPointerClickHandler
         return false;
     }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        Debug.Log("i clicked a villager");
-        OpenInventoryEvent?.Invoke(items, eventData);
-    }
 }
 
 

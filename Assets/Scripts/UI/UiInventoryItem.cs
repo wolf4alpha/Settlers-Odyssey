@@ -15,8 +15,6 @@ public class UiInventoryItem : MonoBehaviour
     [SerializeField]
     private Image borderImage;
 
-    private bool empty = true;
-
     public void Awake()
     {
         ResetData();        
@@ -25,6 +23,7 @@ public class UiInventoryItem : MonoBehaviour
     public void ResetData()
     {
         this.itemImage.gameObject.SetActive(false);
+        this.gameObject.SetActive(false);        
     }
 
     public void SetData(Sprite sprite, int quantity)
@@ -32,6 +31,5 @@ public class UiInventoryItem : MonoBehaviour
         this.itemImage.gameObject.SetActive(true);
         this.itemImage.sprite = sprite;
         this.quantityText.text = quantity.ToString();
-        empty = false;
     }
 }

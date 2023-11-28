@@ -4,11 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-
-
-
-public class Villager : MonoBehaviour
+public class Villager : MonoBehaviour, IPointerClickHandler
 {
     #region states
     public VillagerStateMachine stateMachine { get; private set; }
@@ -25,10 +23,17 @@ public class Villager : MonoBehaviour
     public VillagerBrain brain { get; private set; }
 
     public DynamicInventory inventory { get; private set; }
-    public InventoryMangerScripableObject inventoryManager;
+  //  public InventoryMangerScripableObject inventoryManager;
 
     public GameObject destination;
-    public Properties destinationProperties;
+    public RessourceProperties destinationProperties;
+
+    public bool lastActionFilledInventory;
+    public bool isSelected;
+
+    public static event System.Action<Villager> SelectedVillagerEvent;
+
+    
 
     #region Debug
     public string currentAction;
@@ -56,7 +61,6 @@ public class Villager : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
-
         brain = GetComponent<VillagerBrain>();
         stats.maxEnergy = 100;
         stateMachine.Initialize(idleState);
@@ -69,6 +73,12 @@ public class Villager : MonoBehaviour
      //   currentAction = stateMachine.currentState.ToString();
     }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        isSelected = true;
+        SelectedVillagerEvent?.Invoke(this);
+    }
+
     //coroutine
     public void DoWork(int time)
     {
@@ -77,26 +87,21 @@ public class Villager : MonoBehaviour
         destinationProperties.AssingVillager();
         
         StartCoroutine(WorkCoroutine(time));
-        
-        destinationProperties.RemoveRessource(1);
-
        //instanciate SO
-       ItemData item = destinationProperties.getRessource();
-
-        inventory.AddItem(new ItemInstance(item));
-        //just for testing
+  
+        
        
     }
 
     public void DoSleep(int time)
     {
-        destination.GetComponentInParent<Properties>().AssingVillager();
+        destinationProperties.AssingVillager();
         StartCoroutine(SleepCoroutine(time));
     }
 
     public void DoEating(int time)
     {
-        destination.GetComponentInParent<Properties>().AssingVillager();
+        destinationProperties.AssingVillager();
         StartCoroutine(EatCoroutine(time));
     }
 
@@ -107,11 +112,12 @@ public class Villager : MonoBehaviour
 
     public void OnFinishedAction()
     {
-        stateMachine.ChangeState(idleState);
+        
         if (destination != null)
         {
-            destination.GetComponentInParent<Properties>().RemoveVillager();
+            destinationProperties.RemoveVillager();
         }
+        stateMachine.ChangeState(idleState);
     }
 
     IEnumerator WorkCoroutine(int time)
@@ -126,8 +132,22 @@ public class Villager : MonoBehaviour
         }
 
         Debug.Log("i harvested 1 ressource");
+        destinationProperties.RemoveRessource(1);
 
-        OnFinishedAction();
+     
+        ItemInstance itemInstance = new ItemInstance(destinationProperties.getRessource());
+        if (inventory.AddItem(itemInstance) == false)
+        {
+            lastActionFilledInventory = true;
+            currentAction = "Move to base";
+            //brain.bestAction.RequiredDestination = 
+            // drop item on ground?
+            // return To nearest storage to drop work items
+        }
+        else
+        {
+            OnFinishedAction();
+        }
     }
 
     IEnumerator SleepCoroutine(int time)

@@ -17,13 +17,6 @@ public class VillagerBrain : MonoBehaviour
         finishedDeciding = false;
     }
 
-    void Update()
-    {
-        //if(bestAction is null) {
-        //    DecideBestAction();
-        //}
-    }
-
     public void DecideBestAction()
     {
         float score = 0f;

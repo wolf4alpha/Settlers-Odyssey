@@ -33,6 +33,10 @@ public class VillagerMoveState : VillagerState
               //  villager.inventory.RemoveItem(0, 5);
               //  villager.brain.bestAction.RequiredDestination.GetComponent<InventoryManager>().AddItem(0, 5);
              //   villager.inventoryManager.AddWood(5);
+                foreach(var item in villager.inventory.items)
+                {
+
+                }
                 Debug.Log("added 5 Wood to Base");
                 villager.stateMachine.ChangeState(villager.idleState);
                 

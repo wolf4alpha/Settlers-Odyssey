@@ -8,7 +8,7 @@ public class BaseUI : MonoBehaviour
     public Camera cam;
     
     public Text inventoryText;
-    public InventoryManager inventory;
+    //public InventoryManager inventory;
 
     public void Awake()
     {
