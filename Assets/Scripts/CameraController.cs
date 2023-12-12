@@ -83,6 +83,13 @@ public class NewBehaviourScript : MonoBehaviour
         cameraActions.CameraMovment.RotateCamera.performed += RotateCamera;
         cameraActions.CameraMovment.ZoomCamera.performed += ZoomCamera;
         cameraActions.CameraMovment.Enable();
+
+        Villager.SelectedVillagerEvent += FocusSelectVillager;
+    }
+
+    private void FocusSelectVillager(Villager selectedVillager)
+    {
+        villager = selectedVillager.gameObject;
     }
 
     private void OnDisable()
@@ -94,10 +101,10 @@ public class NewBehaviourScript : MonoBehaviour
 
     private void Update()
     {
+       
+        
         //inputs
         GetKeyboardMovement();
-        
-        
 
         // CheckMouseAtScreenEdge();
         DragCamera();
@@ -106,10 +113,7 @@ public class NewBehaviourScript : MonoBehaviour
         UpdateVelocity();
         UpdateBasePosition();
         UpdateCameraPosition();
-        //cameraTransform.position = villager.transform.position + new Vector3(0f, 3f, -3f);
-        //cameraTransform.LookAt(villager.transform.position);
-        //cameraTransform.RotateAround(villager.transform.position, Vector3.up, 180f);
-
+      
         FollowCameraHandler();
     }
 

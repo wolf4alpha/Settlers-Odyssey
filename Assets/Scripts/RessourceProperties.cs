@@ -43,7 +43,8 @@ public class RessourceProperties : MonoBehaviour
         if (_currentRessource < 0)
         {
             _currentRessource = 0;
-            Destroy(gameObject);
+           if(gameObject != null)
+             Destroy(gameObject);
         }
     }
 

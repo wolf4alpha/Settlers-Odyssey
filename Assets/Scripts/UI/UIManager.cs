@@ -32,6 +32,9 @@ public class UIManager : MonoBehaviour
     private Villager selectVillager;
 
     [SerializeField]
+    private List<Villager> villagers = new List<Villager>();
+
+    [SerializeField]
     List<UiInventoryItem> listofUiItems = new List<UiInventoryItem>();
     private int inventorySize = 10;
 
@@ -95,12 +98,58 @@ public class UIManager : MonoBehaviour
 
     }
 
+    public void SelectNextVillager()
+    {
+        if(selectVillager == null)
+        {
+            if (villagers.Count > 0)
+            {
+                villagers[0].selectVillager();
+            }
+        }
+        else
+        {
+            int index = villagers.IndexOf(selectVillager);
+            if (index < villagers.Count - 1)
+            {
+                villagers[index + 1].selectVillager();
+            }
+            else
+            {
+                villagers[0].selectVillager();
+            }
+        }
+    }
+
+    //selectpreviousVillager
+    public void SelectPreviousVillager()
+    {
+        if (selectVillager == null)
+        {
+            if (villagers.Count > 0)
+            {
+                villagers[0].selectVillager(); 
+            }
+        }
+        else
+        {
+            int index = villagers.IndexOf(selectVillager);
+            if (index > 0)
+            {
+                villagers[index - 1].selectVillager();
+            }
+            else
+            {
+              villagers[villagers.Count - 1].selectVillager();
+            }
+        }
+    }
+
 
     private void SelectVillager(Villager villager)
     {
         selectVillager = villager;
         items = villager.inventory.items;
-        Debug.Log("new villager select:" + villager.name);
         InitializeInventoryUI();
         UpdateItems();
         UpdateStats();

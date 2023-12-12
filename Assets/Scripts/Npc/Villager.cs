@@ -31,8 +31,10 @@ public class Villager : MonoBehaviour, IPointerClickHandler
     public bool lastActionFilledInventory;
     public bool isSelected;
 
-    public static event System.Action<Villager> SelectedVillagerEvent;
+    private GameObject currentWorkplaces;
+    private GameObject home;
 
+    public static event System.Action<Villager> SelectedVillagerEvent;
     
 
     #region Debug
@@ -74,6 +76,11 @@ public class Villager : MonoBehaviour, IPointerClickHandler
     }
 
     public void OnPointerClick(PointerEventData eventData)
+    {
+        selectVillager();
+    }
+
+    public void selectVillager()
     {
         isSelected = true;
         SelectedVillagerEvent?.Invoke(this);
