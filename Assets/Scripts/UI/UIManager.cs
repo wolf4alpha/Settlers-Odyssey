@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,6 +27,12 @@ public class UIManager : MonoBehaviour
     private Text StatsMoney;
 
     [SerializeField]
+    private Text BestAction;
+    
+    [SerializeField]
+    private Text FSM;
+
+    [SerializeField]
     private UiInventoryItem itemPrefab;
 
     [SerializeField]
@@ -36,7 +43,6 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     List<UiInventoryItem> listofUiItems = new List<UiInventoryItem>();
-    private int inventorySize = 10;
 
     public List<ItemInstance> items = new();
 
@@ -55,12 +61,20 @@ public class UIManager : MonoBehaviour
     {
         //  for global inv? DynamicInventory.ChangeInventoryEvent += ChangeInventory;
         Villager.SelectedVillagerEvent += SelectVillager;
+        VillagerBrain.NewBestActionVillagerEvent += UpdateBestAction;
+    }
+
+    private void UpdateBestAction(Action action)
+    {
+        if (action != null)            
+        BestAction.text = action.Name;
     }
 
     private void OnDisable()
     {
         //   DynamicInventory.ChangeInventoryEvent -= ChangeInventory;
         Villager.SelectedVillagerEvent -= SelectVillager;
+        VillagerBrain.NewBestActionVillagerEvent -= UpdateBestAction;
     }
 
     private void Update()
@@ -161,6 +175,8 @@ public class UIManager : MonoBehaviour
         StatsHunger.text = selectVillager.stats.hunger.ToString();
         StatsEnergy.text = selectVillager.stats.energy.ToString();
         StatsMoney.text = selectVillager.stats.money.ToString();
+        BestAction.text = selectVillager.brain.bestAction.Name;
+        FSM.text = selectVillager.stateMachine.currentState.ToString();
     }
 
     private void UpdateItems()

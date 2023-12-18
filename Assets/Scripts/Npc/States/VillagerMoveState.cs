@@ -8,13 +8,29 @@ public class VillagerMoveState : VillagerState
     private GameObject ground;
     public VillagerMoveState(Villager _villager, VillagerStateMachine _stateMachine, string _animBoolName) : base(_villager, _stateMachine, _animBoolName)
     {
-   
+
     }
 
     public override void Enter()
     {
         base.Enter();
+      
     }
+
+    //private void moveToBase()
+    //{
+
+    //    villager.destination = GameObject.FindGameObjectWithTag("Base");
+    //    villager.moveController.MoveTo(villager.destination.transform.position);
+
+    //    if (villager.moveController.TargetReached())
+    //    {
+    //        Debug.Log("reached base!");
+    //        Debug.Log("dropped items to Base");
+    //        villager.inventory.RemoveItem(villager.inventory.items[0]);
+    //        villager.stateMachine.ChangeState(villager.idleState);
+    //    }
+    //}
 
     public override void Exit()
     {
@@ -24,31 +40,9 @@ public class VillagerMoveState : VillagerState
     public override void Update()
     {
         base.Update();
-        if(villager.currentAction == "Move to base")
-        {
-           
-            if (villager.moveController.RemainingDistance() < 2)
-            {
-                Debug.Log("reached base!");
-              //  villager.inventory.RemoveItem(0, 5);
-              //  villager.brain.bestAction.RequiredDestination.GetComponent<InventoryManager>().AddItem(0, 5);
-             //   villager.inventoryManager.AddWood(5);
-                foreach(var item in villager.inventory.items)
-                {
 
-                }
-                Debug.Log("added 5 Wood to Base");
-                villager.stateMachine.ChangeState(villager.idleState);
-                
-            }
-        }
-
-       
-
-        if (villager.moveController.RemainingDistance() < 2 && villager.currentAction!="Move to base") 
-        {
+        if (villager.moveController.TargetReached())
             villager.stateMachine.ChangeState(villager.idleState);
-        }
 
     }
 }

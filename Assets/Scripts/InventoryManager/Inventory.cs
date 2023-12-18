@@ -1,6 +1,7 @@
 using Assets.Scripts.InventoryManager.InventoryItems;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -13,6 +14,7 @@ public class DynamicInventory : MonoBehaviour
 
     public static event System.Action<List<ItemInstance>> ChangeInventoryEvent;
 
+    
     public bool AddItem(ItemInstance itemToAdd)
     {
 
@@ -52,8 +54,6 @@ public class DynamicInventory : MonoBehaviour
         Debug.Log("No space in the inventory");
         return false;
 
-
-
     }
 
     private bool AddToNextEmptySlot(ItemInstance itemToAdd)
@@ -76,6 +76,47 @@ public class DynamicInventory : MonoBehaviour
         }
 
         return false;
+    }
+
+    public bool RemoveItem(ItemInstance itemToRemove)
+    {
+        if(items.Contains(itemToRemove))
+        {
+            items.Remove(itemToRemove);
+            return true;
+        }
+        return false;
+    }
+
+    public float InventoryCapacity()
+    {
+        int currentCapacity = 0;
+        int maxCapacity = maxItems * maxItemStack;
+        // count item.amount for each item in the inventory
+        for (int i = 0; i < items.Count; i++)
+        {
+            currentCapacity += items[i].amount;
+        }
+
+        return currentCapacity*100/maxCapacity;
+
+    }
+
+    private void transferItems(DynamicInventory receiverInventory, ItemInstance item, int amount)
+    {
+        if(receiverInventory != null)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                if (receiverInventory.AddItem(item))
+                {
+                    RemoveItem(item);
+                }
+            }
+            
+        }
+
+    
     }
 
 }

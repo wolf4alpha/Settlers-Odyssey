@@ -27,33 +27,26 @@ public class VillagerIdleState : VillagerState
         // find nearest destination in future
         findNearestActionDestination();
 
-        if (villager.moveController.RemainingDistance() < 2f)
+        switch (villager.brain.bestAction.name)
         {
-
-
-            if (villager.brain.bestAction.name == "Eat")
-            {
-                //    Debug.Log("change state to eat");
+            case "Eat":
                 stateMachine.ChangeState(villager.eatState);
-            }
-
-            if (villager.brain.bestAction.name == "Work")
-            {
-                //    Debug.Log("change state to work");
+                break;
+            case "Work":
                 stateMachine.ChangeState(villager.workState);
-            }
-
-            if (villager.brain.bestAction.name == "Sleep")
-            {
-                //    Debug.Log("change state to sleep");
+                break;
+            case "Sleep":
                 stateMachine.ChangeState(villager.sleepState);
-            }
+                break;
+            case "ReturnItems":
+                stateMachine.ChangeState(villager.moveState);
+                break;
+            default:
+                stateMachine.ChangeState(villager.moveState);
+                break;
+        }
 
-        }
-        else
-        {
-            villager.stateMachine.ChangeState(villager.moveState);
-        }
+
     }
 
     private void findNearestActionDestination()
@@ -65,7 +58,8 @@ public class VillagerIdleState : VillagerState
         {
             if (property.Action == villager.brain.bestAction.name)
             {
-                if(property._currentVillagers < property._maxVillagers) { 
+                if (property._currentVillagers < property._maxVillagers)
+                {
                     float distance = Vector3.Distance(property.transform.position, villager.transform.position);
                     if (distance < nearestDistance)
                     {
@@ -75,9 +69,9 @@ public class VillagerIdleState : VillagerState
                 }
             }
         }
-        
-        
-  
+
+
+
         if (nearestProperty != null)
         {
             Debug.Log("nearest property selected: " + nearestProperty?.name + "with distance: " + nearestDistance);

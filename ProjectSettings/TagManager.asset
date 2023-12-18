@@ -7,6 +7,7 @@ TagManager:
   - Destination
   - Ground
   - Camera
+  - Base
   layers:
   - Default
   - TransparentFX

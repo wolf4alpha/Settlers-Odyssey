@@ -31,12 +31,14 @@ public class Villager : MonoBehaviour, IPointerClickHandler
     public bool lastActionFilledInventory;
     public bool isSelected;
 
+    [SerializeField]
     private GameObject currentWorkplaces;
+    [SerializeField]
     private GameObject home;
 
-    public static event System.Action<Villager> SelectedVillagerEvent;
+    public static event Action<Villager> SelectedVillagerEvent;
+ 
     
-
     #region Debug
     public string currentAction;
     #endregion
@@ -92,12 +94,8 @@ public class Villager : MonoBehaviour, IPointerClickHandler
         // AssignVilager should get the villager to assing the place where he is working
         //So the villager will have place and the place will have the villager
         destinationProperties.AssingVillager();
-        
         StartCoroutine(WorkCoroutine(time));
-       //instanciate SO
-  
-        
-       
+        OnFinishedAction();
     }
 
     public void DoSleep(int time)
@@ -127,34 +125,20 @@ public class Villager : MonoBehaviour, IPointerClickHandler
         stateMachine.ChangeState(idleState);
     }
 
-    IEnumerator WorkCoroutine(int time)
+    IEnumerator WorkCoroutine(int counter)
     {
-        int counter = time;
+      
         while (counter > 0)
         {
             yield return new WaitForSeconds(1);
-            stats.RemoveEnergy(9);
-            stats.removeHunger(4);
             counter--;
         }
-
+       // stats.RemoveEnergy(5);
+        //stats.removeHunger(5);
         Debug.Log("i harvested 1 ressource");
         destinationProperties.RemoveRessource(1);
-
-     
         ItemInstance itemInstance = new ItemInstance(destinationProperties.getRessource());
-        if (inventory.AddItem(itemInstance) == false)
-        {
-            lastActionFilledInventory = true;
-            currentAction = "Move to base";
-            //brain.bestAction.RequiredDestination = 
-            // drop item on ground?
-            // return To nearest storage to drop work items
-        }
-        else
-        {
-            OnFinishedAction();
-        }
+        inventory.AddItem(itemInstance);
     }
 
     IEnumerator SleepCoroutine(int time)
