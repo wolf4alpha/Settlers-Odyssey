@@ -26,6 +26,12 @@ public class UIManager : MonoBehaviour
     private Text StatsMoney;
 
     [SerializeField]
+    private Text FSM;
+
+    [SerializeField]
+    private Text BestAction;
+
+    [SerializeField]
     private UiInventoryItem itemPrefab;
 
     [SerializeField]
@@ -36,7 +42,6 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     List<UiInventoryItem> listofUiItems = new List<UiInventoryItem>();
-    private int inventorySize = 10;
 
     public List<ItemInstance> items = new();
 
@@ -61,7 +66,7 @@ public class UIManager : MonoBehaviour
     {
         //   DynamicInventory.ChangeInventoryEvent -= ChangeInventory;
         Villager.SelectedVillagerEvent -= SelectVillager;
-    }
+    } 
 
     private void Update()
     {
@@ -161,6 +166,8 @@ public class UIManager : MonoBehaviour
         StatsHunger.text = selectVillager.stats.hunger.ToString();
         StatsEnergy.text = selectVillager.stats.energy.ToString();
         StatsMoney.text = selectVillager.stats.money.ToString();
+        FSM.text = selectVillager.stateMachine.currentState.ToString();
+        BestAction.text = selectVillager.brain.bestAction.name;
     }
 
     private void UpdateItems()

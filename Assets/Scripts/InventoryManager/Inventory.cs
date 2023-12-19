@@ -1,8 +1,6 @@
 using Assets.Scripts.InventoryManager.InventoryItems;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 [CreateAssetMenu]
 public class DynamicInventory : MonoBehaviour
@@ -16,13 +14,13 @@ public class DynamicInventory : MonoBehaviour
     public bool AddItem(ItemInstance itemToAdd)
     {
 
-       if(FindItemAndAdd(itemToAdd) == true)
-       {
+        if (FindItemAndAdd(itemToAdd) == true)
+        {
             ChangeInventoryEvent?.Invoke(items);
             return true;
-       }
+        }
 
-       return false;            
+        return false;
 
     }
 
@@ -78,6 +76,52 @@ public class DynamicInventory : MonoBehaviour
         return false;
     }
 
+    public bool RemoveItem(ItemInstance itemToRemove)
+    {
+
+        if (items.Contains(itemToRemove))
+        {
+            items.Remove(itemToRemove);
+            return true;
+        }
+        return false;
+    }
+
+    //
+    // Zusammenfassung:
+    //     return the percentage of the used inventory capacity
+    //
+    // Parameter:
+    //   value:
+    public float InventoryCapacity()
+    {
+        int currentCapacity = 0;
+        int maxCapacity = maxItems * maxItemStack;
+
+        // count item.amount for each item in the inventory
+        for (int i = 0; i < items.Count; i++)
+        {
+            currentCapacity += items[i].amount;
+        }
+        //Debug.Log("Maxitems = " + maxItems + " maxItemStack = " + maxItemStack + " currentCapacity = " + currentCapacity * 100 / maxCapacity);
+        return currentCapacity * 100 / maxCapacity;
+
+    }
+
+    public bool transferedItem(DynamicInventory receiverInventory, ItemInstance item)
+    {
+
+        if (receiverInventory != null)
+        {
+            if (receiverInventory.AddItem(item))
+                return true;
+
+        }
+
+        return false;
+
+    }
+
 }
 
 
@@ -86,10 +130,10 @@ public class ItemInstance
 {
     public ItemData itemType;
     public int amount;
-    
+
     public ItemInstance(ItemData itemData)
     {
         itemType = itemData;
-        amount = 1;               
+        amount = 1;
     }
 }

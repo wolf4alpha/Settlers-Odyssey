@@ -53,7 +53,6 @@ public class Villager : MonoBehaviour, IPointerClickHandler
         sleepState = new VillagerSleepState(this, stateMachine, "sleep");
         eatState = new VillagerEatState(this, stateMachine, "eat");
 
-
         stats = GetComponent<CharacterStats>();
         inventory = GetComponent<DynamicInventory>();
         moveController = GetComponent<MoveController>();
@@ -89,15 +88,8 @@ public class Villager : MonoBehaviour, IPointerClickHandler
     //coroutine
     public void DoWork(int time)
     {
-        // AssignVilager should get the villager to assing the place where he is working
-        //So the villager will have place and the place will have the villager
         destinationProperties.AssingVillager();
-        
         StartCoroutine(WorkCoroutine(time));
-       //instanciate SO
-  
-        
-       
     }
 
     public void DoSleep(int time)
@@ -117,10 +109,17 @@ public class Villager : MonoBehaviour, IPointerClickHandler
         StartCoroutine(WaitCoroutine(time));
     }
 
+    public void DoTransferItems(int time)
+    {
+        StartCoroutine(TransferItemsCoroutine(time));
+    }
+
+
+
     public void OnFinishedAction()
     {
         
-        if (destination != null)
+        if (destinationProperties != null)
         {
             destinationProperties.RemoveVillager();
         }
@@ -186,6 +185,7 @@ public class Villager : MonoBehaviour, IPointerClickHandler
         stats.addHunger(50);
         OnFinishedAction();
     }
+    
     IEnumerator WaitCoroutine(int time)
     {
 
@@ -197,6 +197,29 @@ public class Villager : MonoBehaviour, IPointerClickHandler
         }
 
         Debug.Log("i just waited");
+        OnFinishedAction();
+    }
+
+    IEnumerator TransferItemsCoroutine(int time)
+    {
+        for (int i = inventory.items.Count -1; i >= 0; i--)
+        {
+          //  Debug.Log("i transfer " + inventory.items[i].amount + " x " + inventory.items[i].itemType.itemName + " to " + destination?.name);
+            if (inventory.transferedItem(destination.GetComponent<DynamicInventory>(), inventory.items[i]))
+            {
+                inventory.items.RemoveAt(i);
+            }
+
+
+        }
+
+        int counter = time;
+        while (counter > 0)
+        {
+            yield return new WaitForSeconds(1);
+            counter--;
+        }
+
         OnFinishedAction();
     }
 

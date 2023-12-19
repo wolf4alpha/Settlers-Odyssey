@@ -30,7 +30,6 @@ public class VillagerIdleState : VillagerState
         if (villager.moveController.RemainingDistance() < 2f)
         {
 
-
             if (villager.brain.bestAction.name == "Eat")
             {
                 //    Debug.Log("change state to eat");
@@ -61,34 +60,46 @@ public class VillagerIdleState : VillagerState
         var nearestDistance = Mathf.Infinity;
         RessourceProperties nearestProperty = null;
 
-        foreach (RessourceProperties property in Object.FindObjectsOfType<RessourceProperties>())
+        if (villager.brain.bestAction.name == "ReturnItems")
         {
-            if (property.Action == villager.brain.bestAction.name)
+            Debug.Log("return items to Base");
+            var storage = GameObject.FindWithTag("Base");
+            villager.destination = storage;
+            villager.moveController.MoveTo(storage.transform.position);
+            return;
+        }
+
+        if (villager.brain.bestAction.name != "ReturnItems")
+        {
+
+            foreach (RessourceProperties property in Object.FindObjectsOfType<RessourceProperties>())
             {
-                if(property._currentVillagers < property._maxVillagers) { 
-                    float distance = Vector3.Distance(property.transform.position, villager.transform.position);
-                    if (distance < nearestDistance)
+                if (property.Action == villager.brain.bestAction.name)
+                {
+                    if (property._currentVillagers < property._maxVillagers)
                     {
-                        nearestDistance = distance;
-                        nearestProperty = property;
+                        float distance = Vector3.Distance(property.transform.position, villager.transform.position);
+                        if (distance < nearestDistance)
+                        {
+                            nearestDistance = distance;
+                            nearestProperty = property;
+                        }
                     }
                 }
             }
         }
-        
-        
-  
-        if (nearestProperty != null)
-        {
-            Debug.Log("nearest property selected: " + nearestProperty?.name + "with distance: " + nearestDistance);
-            villager.destination = nearestProperty.gameObject;
-            villager.destinationProperties = nearestProperty.GetComponent<RessourceProperties>();
-            villager.moveController.MoveTo(nearestProperty.transform.position);
-        }
-        else
+
+        if (nearestProperty == null)
         {
             Debug.Log("no property found");
             villager.DoWait(10);
+            return;
         }
+
+        //Debug.Log("nearest property selected: " + nearestProperty?.name + "with distance: " + nearestDistance);
+        villager.destination = nearestProperty.gameObject;
+        villager.destinationProperties = nearestProperty.GetComponent<RessourceProperties>();
+        villager.moveController.MoveTo(nearestProperty.transform.position);
     }
+
 }

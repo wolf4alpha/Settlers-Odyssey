@@ -26,9 +26,9 @@ public class CharacterStats : MonoBehaviour
         hunger = Random.Range(0, maxHunger);
         money = Random.Range(0, maxMoney);
 
-        //energy = 100;
-        //hunger = 0;
-        //money = 900;
+        energy = 100;
+        hunger = 100;
+        money = 0;
     }
 
     void TakeDamage()

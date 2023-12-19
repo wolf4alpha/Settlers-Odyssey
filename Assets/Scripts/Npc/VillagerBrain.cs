@@ -40,7 +40,7 @@ public class VillagerBrain : MonoBehaviour
         for (int i = 0; i < action.considerations.Length; i++)
         {
             float considerationScore = action.considerations[i].ScoreConsideration(villager);
-           // Debug.Log("considerationScore: " +considerationScore);
+            Debug.Log(action.name+": considerationScore: " +considerationScore);
             score *= considerationScore;
             
             if (score == 0f)

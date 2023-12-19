@@ -1,9 +1,6 @@
 using Assets.Scripts.InventoryManager.InventoryItems;
 using UnityEngine;
 
-
-
-
 public class RessourceProperties : MonoBehaviour
 {
 

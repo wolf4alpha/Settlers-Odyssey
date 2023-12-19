@@ -22,18 +22,6 @@ public class VillagerWorkState : VillagerState
     public override void Update()
     {
         base.Update();
-        if (villager.currentAction == "Move to base")
-        {
-            if (villager.moveController.RemainingDistance() < 2f)
-            {
-                Debug.Log("reached base!");
-                Debug.Log("dropped 5 Wood to Base");
-
-                villager.stateMachine.ChangeState(villager.idleState);
-            }
-        }
-        
-
     }
     
 }
