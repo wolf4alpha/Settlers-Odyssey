@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Workplace : MonoBehaviour
 {
-
    
     [SerializeField]
     private List<Villager> villagerList;

@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,13 +14,13 @@ public class UiInventoryItem : MonoBehaviour
 
     public void Awake()
     {
-        ResetData();        
+        ResetData();
     }
 
     public void ResetData()
     {
         this.itemImage.gameObject.SetActive(false);
-        this.gameObject.SetActive(false);        
+        this.gameObject.SetActive(false);
     }
 
     public void SetData(Sprite sprite, int quantity)

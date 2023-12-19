@@ -1,3 +1,5 @@
+using Cinemachine;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,17 +45,26 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     List<UiInventoryItem> listofUiItems = new List<UiInventoryItem>();
 
+    #region BaseItems
+    [SerializeField]
+    private DynamicInventory BaseInventory;
+    [SerializeField]
+    private Text BaseWoodAmount;
+    [SerializeField]
+    private Text BaseFoodAmount;
+    [SerializeField]
+    private Text BaseStoneAmount;
+    #endregion
+
     public List<ItemInstance> items = new();
 
     private float uiUpdateInterval = 0.5f;
 
     private float currentUpdateInterval = 0;
 
-
     private void Awake()
     {
-        // InitializeInventoryUI();
-
+        BaseInventory = GameObject.FindWithTag("Base").GetComponent<DynamicInventory>();
     }
 
     private void OnEnable()
@@ -77,9 +88,19 @@ public class UIManager : MonoBehaviour
         if (currentUpdateInterval < 0)
         {
             UpdateItems();
+            UpdateBaseItems();
             UpdateStats();
             currentUpdateInterval = uiUpdateInterval;
         }
+    }
+
+    private void UpdateBaseItems()
+    {
+       
+       BaseWoodAmount.text = BaseInventory.items.Find(x => x.itemType.name == "Wood")?.amount.ToString() ?? "0";
+       BaseFoodAmount.text = BaseInventory.items.Find(x => x.itemType.name == "Food")?.amount.ToString() ?? "0";
+       BaseStoneAmount.text = BaseInventory.items.Find(x => x.itemType.name == "Stone")?.amount.ToString() ?? "0";
+
     }
 
     public void InitializeInventoryUI()

@@ -31,8 +31,9 @@ public class Villager : MonoBehaviour, IPointerClickHandler
     public bool lastActionFilledInventory;
     public bool isSelected;
 
-    private GameObject currentWorkplaces;
-    private GameObject home;
+    [SerializeField]
+    private Workplace Workplaces;
+    private Home home;
 
     public static event System.Action<Villager> SelectedVillagerEvent;
     
