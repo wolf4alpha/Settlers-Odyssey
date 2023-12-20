@@ -366,6 +366,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1543440558}
+  - {fileID: 1666772383}
   - {fileID: 1146265785}
   - {fileID: 2031917812}
   - {fileID: 863616713}
@@ -2107,11 +2108,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2ce61edd83ea464883617b34f00440e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ressourceType: {fileID: 11400000, guid: 34cba47323c16a84f90ab2af7d86ed04, type: 2}
-  _currentRessource: 100
-  _maxVillagers: 4
-  _currentVillagers: 0
-  Action: Work
 --- !u!4 &423279182
 Transform:
   m_ObjectHideFlags: 0
@@ -2455,7 +2451,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxItems: 100
   maxItemStack: 999
-  items: []
+  items:
+  - itemType: {fileID: 11400000, guid: c0a925c468e91c34d8badfe8a2b1aba2, type: 2}
+    amount: 100
+  - itemType: {fileID: 11400000, guid: 4fac606983a137447a8f987df2fcfdb7, type: 2}
+    amount: 100
+  - itemType: {fileID: 11400000, guid: 34cba47323c16a84f90ab2af7d86ed04, type: 2}
+    amount: 100
 --- !u!4 &450373601 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8177807573486221497, guid: ee24e119d4e40b74e82fa4ef4de7e2ec, type: 3}
@@ -2537,11 +2539,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2ce61edd83ea464883617b34f00440e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ressourceType: {fileID: 11400000, guid: 4fac606983a137447a8f987df2fcfdb7, type: 2}
-  _currentRessource: 100
-  _maxVillagers: 4
-  _currentVillagers: 0
-  Action: Work
 --- !u!4 &522667228
 Transform:
   m_ObjectHideFlags: 0
@@ -2756,11 +2753,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2ce61edd83ea464883617b34f00440e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ressourceType: {fileID: 11400000, guid: c0a925c468e91c34d8badfe8a2b1aba2, type: 2}
-  _currentRessource: 100
-  _maxVillagers: 4
-  _currentVillagers: 0
-  Action: Work
 --- !u!1001 &565559416
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4039,11 +4031,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2ce61edd83ea464883617b34f00440e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ressourceType: {fileID: 11400000, guid: 4fac606983a137447a8f987df2fcfdb7, type: 2}
-  _currentRessource: 100
-  _maxVillagers: 4
-  _currentVillagers: 0
-  Action: Work
 --- !u!1 &691580349
 GameObject:
   m_ObjectHideFlags: 0
@@ -4163,11 +4150,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2ce61edd83ea464883617b34f00440e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ressourceType: {fileID: 11400000, guid: 34cba47323c16a84f90ab2af7d86ed04, type: 2}
-  _currentRessource: 100
-  _maxVillagers: 4
-  _currentVillagers: 0
-  Action: Work
 --- !u!1 &701664991
 GameObject:
   m_ObjectHideFlags: 0
@@ -6247,11 +6229,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2ce61edd83ea464883617b34f00440e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ressourceType: {fileID: 11400000, guid: 4fac606983a137447a8f987df2fcfdb7, type: 2}
-  _currentRessource: 100
-  _maxVillagers: 4
-  _currentVillagers: 0
-  Action: Work
 --- !u!1 &1100675922
 GameObject:
   m_ObjectHideFlags: 0
@@ -6888,11 +6865,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2ce61edd83ea464883617b34f00440e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ressourceType: {fileID: 11400000, guid: c0a925c468e91c34d8badfe8a2b1aba2, type: 2}
-  _currentRessource: 100
-  _maxVillagers: 4
-  _currentVillagers: 0
-  Action: Work
 --- !u!4 &1234601143 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6451340004940131962, guid: ee612942e9d74fe4baea785dfe2eaa52, type: 3}
@@ -7121,11 +7093,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2ce61edd83ea464883617b34f00440e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ressourceType: {fileID: 11400000, guid: 4fac606983a137447a8f987df2fcfdb7, type: 2}
-  _currentRessource: 100
-  _maxVillagers: 4
-  _currentVillagers: 0
-  Action: Work
 --- !u!4 &1280497953 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 76437dde85b553a448feac48309ee249, type: 3}
@@ -7286,11 +7253,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2ce61edd83ea464883617b34f00440e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ressourceType: {fileID: 11400000, guid: 4fac606983a137447a8f987df2fcfdb7, type: 2}
-  _currentRessource: 100
-  _maxVillagers: 4
-  _currentVillagers: 0
-  Action: Work
 --- !u!1 &1318663567
 GameObject:
   m_ObjectHideFlags: 0
@@ -7944,6 +7906,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8139306236123809429, guid: ceda9be89f930ac42b32ff5ae10598cd, type: 3}
   m_PrefabInstance: {fileID: 405465291}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1666772382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1666772383}
+  - component: {fileID: 1666772384}
+  m_Layer: 0
+  m_Name: SaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1666772383
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666772382}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 30556822}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1666772384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666772382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20e22d97ec31d76449423b34e7a26376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1725197140
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9059,11 +9065,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2ce61edd83ea464883617b34f00440e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ressourceType: {fileID: 0}
-  _currentRessource: 100
-  _maxVillagers: 4
-  _currentVillagers: 0
-  Action: Sleep
 --- !u!1 &1998986626
 GameObject:
   m_ObjectHideFlags: 0
@@ -9190,11 +9191,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2ce61edd83ea464883617b34f00440e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ressourceType: {fileID: 0}
-  _currentRessource: 100
-  _maxVillagers: 4
-  _currentVillagers: 0
-  Action: Eat
 --- !u!1 &2017741920 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6247404577920456867, guid: 4a2f1fe7e36596049b29f061a77ff748, type: 3}
@@ -9636,11 +9632,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2ce61edd83ea464883617b34f00440e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ressourceType: {fileID: 11400000, guid: 4fac606983a137447a8f987df2fcfdb7, type: 2}
-  _currentRessource: 100
-  _maxVillagers: 4
-  _currentVillagers: 0
-  Action: Work
 --- !u!1 &2097717674
 GameObject:
   m_ObjectHideFlags: 0

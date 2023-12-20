@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
-public class DynamicInventory : MonoBehaviour
+public class DynamicInventory : MonoBehaviour, ISaveManager
 {
     public int maxItems = 10;
     public int maxItemStack = 5;
@@ -122,6 +122,26 @@ public class DynamicInventory : MonoBehaviour
 
     }
 
+    public void LoadData(GameData _data)
+    {
+        Debug.Log("Loaded data for " + this.transform.name);
+        
+    }
+
+    public void SaveData(ref GameData _data)
+    {
+        if (this.transform.name == "Base")
+        {
+            _data.food = items[0].amount;
+            _data.wood = items[1].amount;
+            _data.stone = items[2].amount;
+
+            var json = JsonUtility.ToJson(_data);
+            Debug.Log("Saved data for " + this.transform.name + ": "+json);
+        }
+        
+          
+    }
 }
 
 

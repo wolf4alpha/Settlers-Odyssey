@@ -5,8 +5,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static UnityEditor.Progress;
 
-public class Villager : MonoBehaviour, IPointerClickHandler
+public class Villager : MonoBehaviour, IPointerClickHandler, ISaveManager
 {
     #region states
     public VillagerStateMachine stateMachine { get; private set; }
@@ -224,6 +225,19 @@ public class Villager : MonoBehaviour, IPointerClickHandler
         OnFinishedAction();
     }
 
+    public void LoadData(GameData _data)
+    {
+        Debug.Log("Loaded data for " + name);
+
+    }
+
+    public void SaveData(ref GameData _data)
+    {
+        //serialize inventory
+        string inventoryjson = JsonUtility.ToJson(this.inventory);
+        Debug.Log("Saved items data for " + name +" : " +inventoryjson);
+        _data.villagerInventory.Add(name, inventory.items);
+    }
 
     public int GenerateRandomNumber(int min, int max)
     {
