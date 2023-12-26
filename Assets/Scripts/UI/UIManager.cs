@@ -65,6 +65,7 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         BaseInventory = GameObject.FindWithTag("Base").GetComponent<DynamicInventory>();
+       
     }
 
     private void OnEnable()
@@ -82,7 +83,7 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         if (selectVillager == null)
-            return;
+            SelectNextVillager();
 
         currentUpdateInterval -= Time.deltaTime;
         if (currentUpdateInterval < 0)
@@ -114,7 +115,6 @@ public class UIManager : MonoBehaviour
         if (selectVillager == null)
             return;
 
-        Debug.Log("Villager maxitems = " + selectVillager.inventory.maxItems);
         for (int i = 0; i < selectVillager.inventory.maxItems; i++)
         {
             UiInventoryItem uiItem = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);

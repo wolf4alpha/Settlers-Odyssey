@@ -124,7 +124,13 @@ public class DynamicInventory : MonoBehaviour, ISaveManager
 
     public void LoadData(GameData _data)
     {
-        Debug.Log("Loaded data for " + this.transform.name);
+        if (this.transform.name == "Base")
+        {
+            items[0].amount = _data.food;
+            items[1].amount = _data.wood;
+            items[2].amount = _data.stone;
+        }
+            Debug.Log("Loaded data for " + this.transform.name);
         
     }
 

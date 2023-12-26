@@ -11,7 +11,8 @@ public class VillagerWorkState : VillagerState
 
     public override void Enter()
     {
-        villager.DoWork(2);
+      Debug.Log("enter work state");
+        villager.DoWork(5);
     }
 
     public override void Exit()

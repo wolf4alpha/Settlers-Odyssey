@@ -90,6 +90,7 @@ public class Villager : MonoBehaviour, IPointerClickHandler, ISaveManager
     //coroutine
     public void DoWork(int time)
     {
+        animator.SetBool("work", true);
         destinationProperties.AssingVillager();
         StartCoroutine(WorkCoroutine(time));
     }
@@ -128,34 +129,27 @@ public class Villager : MonoBehaviour, IPointerClickHandler, ISaveManager
         stateMachine.ChangeState(idleState);
     }
 
-    IEnumerator WorkCoroutine(int time)
+    IEnumerator WorkCoroutine(int counter)
     {
-        int counter = time;
         while (counter > 0)
         {
             yield return new WaitForSeconds(1);
-            stats.RemoveEnergy(9);
-            stats.removeHunger(4);
+            stats.RemoveEnergy(2);
+            stats.removeHunger(2);
             counter--;
         }
-
-        Debug.Log("i harvested 1 ressource");
-        destinationProperties.RemoveRessource(1);
+        var harvestAmount = GenerateRandomNumber(1, 3);
+        destinationProperties.RemoveRessource(harvestAmount);
+        var targetRessource = new ItemInstance(destinationProperties.getRessource());
+        targetRessource.amount = harvestAmount;
+        inventory.AddItem(targetRessource);
+        
 
      
         ItemInstance itemInstance = new ItemInstance(destinationProperties.getRessource());
-        if (inventory.AddItem(itemInstance) == false)
-        {
-            lastActionFilledInventory = true;
-            currentAction = "Move to base";
-            //brain.bestAction.RequiredDestination = 
-            // drop item on ground?
-            // return To nearest storage to drop work items
-        }
-        else
-        {
-            OnFinishedAction();
-        }
+       
+        OnFinishedAction();
+       
     }
 
     IEnumerator SleepCoroutine(int time)
@@ -236,7 +230,7 @@ public class Villager : MonoBehaviour, IPointerClickHandler, ISaveManager
         //serialize inventory
         string inventoryjson = JsonUtility.ToJson(this.inventory);
         Debug.Log("Saved items data for " + name +" : " +inventoryjson);
-        _data.villagerInventory.Add(name, inventory.items);
+      // _data.character.Add(name, inventoryjson);
     }
 
     public int GenerateRandomNumber(int min, int max)

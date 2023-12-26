@@ -6,8 +6,8 @@ public class RessourceProperties : MonoBehaviour
 
     [SerializeField]
     private ItemData _ressourceType;
-    
-   // [SerializeField]
+
+    // [SerializeField]
     //private int _maxRessource = 100;
     [SerializeField]
     private int _currentRessource = 100;
@@ -40,11 +40,8 @@ public class RessourceProperties : MonoBehaviour
         if (_currentRessource < 0)
         {
             _currentRessource = 0;
-           if(gameObject != null)
-             Destroy(gameObject);
+            if (gameObject != null)
+                Destroy(gameObject);
         }
     }
-
-
-
 }

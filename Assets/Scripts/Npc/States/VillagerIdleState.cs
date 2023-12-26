@@ -71,6 +71,7 @@ public class VillagerIdleState : VillagerState
 
         if (villager.brain.bestAction.name != "ReturnItems")
         {
+            RessourceProperties[] test = Object.FindObjectsOfType<RessourceProperties>();
 
             foreach (RessourceProperties property in Object.FindObjectsOfType<RessourceProperties>())
             {

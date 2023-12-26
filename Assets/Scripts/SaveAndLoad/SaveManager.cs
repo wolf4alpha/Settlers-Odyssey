@@ -8,6 +8,9 @@ public class SaveManager : MonoBehaviour
     
     private GameData gameData;
     private List<ISaveManager> saveManagers;
+    private FileDataHandler dataHandler;
+    [SerializeField]
+    private string fileName;
 
     
 
@@ -22,6 +25,7 @@ public class SaveManager : MonoBehaviour
 
     private void Start()
     {
+        dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
         saveManagers = FindAllSaveManagers();
         LoadGame();
     }   
@@ -33,7 +37,7 @@ public class SaveManager : MonoBehaviour
 
     public void LoadGame()
     {
-        
+        gameData = dataHandler.LoadJson();
         if(gameData == null)
         {
             Debug.Log("No game data found, creating new game");
@@ -55,7 +59,7 @@ public class SaveManager : MonoBehaviour
         }
         
         var json = JsonUtility.ToJson(gameData);
-        Debug.Log("Game was Saved:" + json);  
+        dataHandler.SaveXml(gameData);
     }
 
     private void OnApplicationQuit()
