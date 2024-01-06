@@ -1,25 +1,51 @@
+using Assets.Scripts.InventoryManager.InventoryItems;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 [Serializable]
 public class GameData
 {
-    public int food;
-    public int wood;
-    public int stone;
+    
+    public Dictionary<string, GameDataCharacter> characters;
 
-   
     public GameData()
     {
-        food = 0;
-        wood = 0;
-        stone = 0;
-        //inventory = new Dictionary<string, int>();
-        //character = new Dictionary<string, string>();
-        //character.Add("Villager", "test");
-        //character.Add("Villager (1)", "test2");
-
-
-
+        characters = new Dictionary<string, GameDataCharacter>();
     }
 }
+
+public class GameDataCharacter
+{
+    public Dictionary<string, string> inventory;
+    public Dictionary<string, string> stats;
+
+    public GameDataCharacter()
+    {
+        inventory = new Dictionary<string, string>();
+        stats = new Dictionary<string, string>();
+    }
+}
+
+public class GameDataInventory
+{
+    public Dictionary<string, string> inventory;
+
+    public GameDataInventory()
+    {
+        inventory = new Dictionary<string, string>();
+    }
+}
+
+
+public class GameDataStats
+{
+    public Dictionary<string, string> stats;
+
+    public GameDataStats()
+    {
+        stats = new Dictionary<string, string>();
+    }
+}
+
+

@@ -1,5 +1,7 @@
 using Assets.Scripts.InventoryManager.InventoryItems;
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Xml;
 using UnityEngine;
 
 [CreateAssetMenu]
@@ -126,27 +128,27 @@ public class DynamicInventory : MonoBehaviour, ISaveManager
     {
         if (this.transform.name == "Base")
         {
-            items[0].amount = _data.food;
-            items[1].amount = _data.wood;
-            items[2].amount = _data.stone;
+            // items[0].amount = _data.food;
+            // items[1].amount = _data.wood;
+            // items[2].amount = _data.stone;
         }
-            Debug.Log("Loaded data for " + this.transform.name);
-        
+        Debug.Log("Loaded data for " + this.transform.name);
+
     }
 
     public void SaveData(ref GameData _data)
     {
-        if (this.transform.name == "Base")
-        {
-            _data.food = items[0].amount;
-            _data.wood = items[1].amount;
-            _data.stone = items[2].amount;
+        GameDataCharacter chardata = new();
 
-            var json = JsonUtility.ToJson(_data);
-            Debug.Log("Saved data for " + this.transform.name + ": "+json);
+        foreach (var item in items)
+        {
+            chardata.inventory.Add(item.itemType.name,item.amount.ToString());
         }
-        
-          
+        _data.characters.Add(this.transform.name, chardata);
+
+
+
+
     }
 }
 

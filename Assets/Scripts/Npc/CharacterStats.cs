@@ -1,8 +1,9 @@
+using Newtonsoft.Json;
 using UnityEngine;
 
-public class CharacterStats : MonoBehaviour
+public class CharacterStats : MonoBehaviour, ISaveManager
 {
-  
+
     public int maxEnergy;
     public int maxHunger;
     public int maxMoney;
@@ -33,7 +34,7 @@ public class CharacterStats : MonoBehaviour
 
     void TakeDamage()
     {
-       // currentHealth -= 1;
+        // currentHealth -= 1;
     }
 
     public void addHunger(int _hunger) { hunger += _hunger; }
@@ -42,6 +43,24 @@ public class CharacterStats : MonoBehaviour
 
     public void AddEnergy(int _sleep) { energy += _sleep; }
     public void RemoveEnergy(int _sleep) { energy -= _sleep; }
-    
 
+    public void LoadData(GameData _data)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void SaveData(ref GameData _data)
+    {
+        //GameDataStats saveStats = new();
+
+        //saveStats.stats.Add("hunger", hunger.ToString());
+        //saveStats.stats.Add("energy", energy.ToString());
+        //saveStats.stats.Add("money", money.ToString());
+
+        
+
+       // var json = JsonConvert.SerializeObject(saveStats);
+       // _data.stats.Add(this.transform.name, json);
+
+    }
 }

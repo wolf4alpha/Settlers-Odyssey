@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using Unity.VisualScripting;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 public class FileDataHandler
 {
@@ -22,7 +23,7 @@ public class FileDataHandler
         string fullPath = Path.Combine(DataDirectoryPath, DataFileName);
         try { 
             Directory.CreateDirectory(DataDirectoryPath);
-            string dataToStore = JsonUtility.ToJson(_data, true);
+            string dataToStore = JsonConvert.SerializeObject(_data);
 
             using(FileStream stream = new FileStream(fullPath,FileMode.Create))
             {

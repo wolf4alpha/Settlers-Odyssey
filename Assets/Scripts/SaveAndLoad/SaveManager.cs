@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Newtonsoft.Json;
+
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager instance;
@@ -58,7 +60,7 @@ public class SaveManager : MonoBehaviour
             saveManager.SaveData(ref gameData);
         }
         
-        var json = JsonUtility.ToJson(gameData);
+        var json = JsonConvert.SerializeObject(gameData);
         dataHandler.SaveJson(gameData);
         //dataHandler.SaveXml(gameData);
     }

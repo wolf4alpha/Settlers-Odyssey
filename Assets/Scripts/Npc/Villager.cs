@@ -1,4 +1,5 @@
 using Assets.Scripts.InventoryManager.InventoryItems;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -235,8 +236,13 @@ public class Villager : MonoBehaviour, IPointerClickHandler, ISaveManager
     public void SaveData(ref GameData _data)
     {
         //serialize inventory
-        string inventoryjson = JsonUtility.ToJson(this.inventory);
-        Debug.Log("Saved items data for " + name +" : " +inventoryjson);
+        Dictionary<string, int> inventortoSave = new Dictionary<string, int>();
+        foreach (var item in inventory.items)
+        {
+            inventortoSave.Add(item.itemType.itemName, item.amount);
+        }
+        string inventoryjson = JsonConvert.SerializeObject(inventortoSave);
+        
       // _data.character.Add(name, inventoryjson);
     }
 
