@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Camera
   - Base
+  - Villager
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - UI
   - Characters
   - Walkable
-  - 
+  - Furniture
   - 
   - 
   - 

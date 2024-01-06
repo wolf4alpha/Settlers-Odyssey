@@ -59,7 +59,8 @@ public class SaveManager : MonoBehaviour
         }
         
         var json = JsonUtility.ToJson(gameData);
-        dataHandler.SaveXml(gameData);
+        dataHandler.SaveJson(gameData);
+        //dataHandler.SaveXml(gameData);
     }
 
     private void OnApplicationQuit()

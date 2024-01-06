@@ -1,19 +1,17 @@
 using System;
-using System.Linq.Expressions;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 
-public class NewBehaviourScript : MonoBehaviour
+public class CameraManager : MonoBehaviour
 {
     private CameraController cameraActions;
     private InputAction movement;
     private Transform cameraTransform;
-    
+
     [SerializeField]
     private Camera followCamera;
-    
+ 
     [SerializeField]
     private Vector3 followCameraInitalOffset;
     private Vector3 followCameraPosition;
@@ -21,7 +19,7 @@ public class NewBehaviourScript : MonoBehaviour
     //debug
     public GameObject villager;
 
-    
+
     [SerializeField]
     private float maxSpeed = 5f;
     private float speed;
@@ -30,7 +28,7 @@ public class NewBehaviourScript : MonoBehaviour
     [SerializeField]
     private float damping = 15f;
 
-    
+
     [SerializeField]
     private float stepSize = 2f;
     [SerializeField]
@@ -69,7 +67,7 @@ public class NewBehaviourScript : MonoBehaviour
         cameraTransform = this.GetComponentInChildren<Camera>().transform;
 
         //debug
-      
+
     }
 
     private void OnEnable()
@@ -101,8 +99,8 @@ public class NewBehaviourScript : MonoBehaviour
 
     private void Update()
     {
-       
-        
+
+
         //inputs
         GetKeyboardMovement();
 
@@ -113,7 +111,7 @@ public class NewBehaviourScript : MonoBehaviour
         UpdateVelocity();
         UpdateBasePosition();
         UpdateCameraPosition();
-      
+
         FollowCameraHandler();
     }
 
@@ -123,7 +121,7 @@ public class NewBehaviourScript : MonoBehaviour
         {
             SwitchCamera();
         }
-        if(followCamera.enabled)
+        if (followCamera.enabled)
         {
             followCamera.transform.position = villager.transform.position + followCameraInitalOffset;
             followCamera.transform.LookAt(villager.transform.position);
@@ -142,9 +140,9 @@ public class NewBehaviourScript : MonoBehaviour
         {
             followCamera.enabled = true;
         }
-        
 
-            
+
+
     }
 
     private void UpdateVelocity()

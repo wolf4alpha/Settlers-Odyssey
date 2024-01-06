@@ -72,10 +72,13 @@ public class VillagerIdleState : VillagerState
         if (villager.brain.bestAction.name != "ReturnItems")
         {
             RessourceProperties[] test = Object.FindObjectsOfType<RessourceProperties>();
+            //find object with ressourceproperties ressourcetype == wood
+            
+
 
             foreach (RessourceProperties property in Object.FindObjectsOfType<RessourceProperties>())
             {
-                if (property.Action == villager.brain.bestAction.name)
+                if (property.Action == villager.brain.bestAction.name && property.getRessource() == villager.selectedWork)
                 {
                     if (property._currentVillagers < property._maxVillagers)
                     {

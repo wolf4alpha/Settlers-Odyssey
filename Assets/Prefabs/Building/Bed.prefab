@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 233258797197035188}
   - component: {fileID: 6250421475963053867}
   - component: {fileID: 4397525664952682745}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 8865500852694518576}
   - component: {fileID: 8865500852697418514}
   - component: {fileID: 8865500852696287698}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EA03_Prop_Town_Bed_01a.004_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,8 +124,8 @@ Transform:
   m_GameObject: {fileID: 8865500852694030096}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1.02, y: 0, z: 0.584}
+  m_LocalScale: {x: 0.7, y: 1, z: 0.94}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8865500852694518582}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 8865500852694518578}
   - component: {fileID: 8865500852697418516}
   - component: {fileID: 8865500852696287700}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EA03_Prop_Town_Bed_01a.004_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,8 +207,8 @@ Transform:
   m_GameObject: {fileID: 8865500852694030098}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1.02, y: 0, z: 0.584}
+  m_LocalScale: {x: 0.7, y: 1, z: 0.94}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8865500852694518582}
@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 8865500852694518580}
   - component: {fileID: 8865500852697418518}
   - component: {fileID: 8865500852696287702}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EA03_Prop_Town_Bed_01a.004_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,8 +290,8 @@ Transform:
   m_GameObject: {fileID: 8865500852694030100}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.5}
-  m_LocalScale: {x: 0.97, y: 1, z: 0.94}
+  m_LocalPosition: {x: 1.02, y: 0, z: 0.584}
+  m_LocalScale: {x: 0.7, y: 1, z: 0.94}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5264591122838532323}
@@ -357,7 +357,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8865500852694518582}
   - component: {fileID: 8865500852714561430}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bed
   m_TagString: Untagged
   m_Icon: {fileID: 0}

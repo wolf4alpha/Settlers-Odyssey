@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static UnityEditor.Progress;
 
 public class Villager : MonoBehaviour, IPointerClickHandler, ISaveManager
 {
@@ -20,7 +19,7 @@ public class Villager : MonoBehaviour, IPointerClickHandler, ISaveManager
 
     public Animator animator { get; private set; }
     public CharacterStats stats { get; private set; }
-    public MoveController moveController { get; private set; }
+    public MovePreview moveController { get; private set; }
     public VillagerBrain brain { get; private set; }
 
     public DynamicInventory inventory { get; private set; }
@@ -34,6 +33,9 @@ public class Villager : MonoBehaviour, IPointerClickHandler, ISaveManager
 
     [SerializeField]
     private Workplace Workplaces;
+
+    public ItemData selectedWork;
+
     private Home home;
 
     public static event System.Action<Villager> SelectedVillagerEvent;
@@ -57,7 +59,7 @@ public class Villager : MonoBehaviour, IPointerClickHandler, ISaveManager
 
         stats = GetComponent<CharacterStats>();
         inventory = GetComponent<DynamicInventory>();
-        moveController = GetComponent<MoveController>();
+        moveController = GetComponent<MovePreview>();
        
     }
 
@@ -85,6 +87,11 @@ public class Villager : MonoBehaviour, IPointerClickHandler, ISaveManager
     {
         isSelected = true;
         SelectedVillagerEvent?.Invoke(this);
+    }
+
+    public void SetWorkItem(ItemData item)
+    {
+        selectedWork = item;
     }
 
     //coroutine

@@ -19,5 +19,9 @@ MonoBehaviour:
     <Prefab>k__BackingField: {fileID: 7259480735200193609, guid: aee214afd9d7edb4c8ac21b289714a14, type: 3}
   - <Name>k__BackingField: Bed
     <Id>k__BackingField: 1
-    <Size>k__BackingField: {x: 1, y: 2}
+    <Size>k__BackingField: {x: 2, y: 2}
     <Prefab>k__BackingField: {fileID: 8865500852694030102, guid: be82d3687add48749b1dc186b30b5bc3, type: 3}
+  - <Name>k__BackingField: Wall
+    <Id>k__BackingField: 2
+    <Size>k__BackingField: {x: 1, y: 2}
+    <Prefab>k__BackingField: {fileID: 1438884826992546, guid: 79e5c046bc1ea1645b11a916b1a20504, type: 3}

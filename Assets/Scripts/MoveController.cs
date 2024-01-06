@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MoveController : MonoBehaviour
+public class MovePreview : MonoBehaviour
 {
     private NavMeshAgent agent;
 
