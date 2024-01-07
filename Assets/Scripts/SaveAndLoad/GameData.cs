@@ -15,15 +15,19 @@ public class GameData
     }
 }
 
+
+[Serializable]
 public class GameDataCharacter
 {
     public Dictionary<string, string> inventory;
     public Dictionary<string, string> stats;
+    public float[] position;
 
     public GameDataCharacter()
     {
         inventory = new Dictionary<string, string>();
         stats = new Dictionary<string, string>();
+        position = new float[3];        
     }
 }
 

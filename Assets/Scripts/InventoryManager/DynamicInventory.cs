@@ -5,7 +5,7 @@ using System.Xml;
 using UnityEngine;
 
 [CreateAssetMenu]
-public class DynamicInventory : MonoBehaviour, ISaveManager
+public class DynamicInventory : MonoBehaviour
 {
     public int maxItems = 10;
     public int maxItemStack = 5;
@@ -21,9 +21,7 @@ public class DynamicInventory : MonoBehaviour, ISaveManager
             ChangeInventoryEvent?.Invoke(items);
             return true;
         }
-
         return false;
-
     }
 
     public bool FindItemAndAdd(ItemInstance itemToAdd)
@@ -124,32 +122,8 @@ public class DynamicInventory : MonoBehaviour, ISaveManager
 
     }
 
-    public void LoadData(GameData _data)
-    {
-        if (this.transform.name == "Base")
-        {
-            // items[0].amount = _data.food;
-            // items[1].amount = _data.wood;
-            // items[2].amount = _data.stone;
-        }
-        Debug.Log("Loaded data for " + this.transform.name);
-
-    }
-
-    public void SaveData(ref GameData _data)
-    {
-        GameDataCharacter chardata = new();
-
-        foreach (var item in items)
-        {
-            chardata.inventory.Add(item.itemType.name,item.amount.ToString());
-        }
-        _data.characters.Add(this.transform.name, chardata);
 
 
-
-
-    }
 }
 
 

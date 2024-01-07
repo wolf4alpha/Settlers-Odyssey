@@ -16,7 +16,7 @@ public class VillagerState
     public virtual void Enter() {
         
         villager.animator.SetBool(animBoolName, true);
-        Debug.Log("change state to: "+animBoolName);
+       // Debug.Log("change state to: "+animBoolName);
 
     }
 

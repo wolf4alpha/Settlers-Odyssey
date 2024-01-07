@@ -1,11 +1,9 @@
 using Assets.Scripts.InventoryManager.InventoryItems;
-using Newtonsoft.Json;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static UnityEditor.Progress;
 
 public class Villager : MonoBehaviour, IPointerClickHandler, ISaveManager
 {
@@ -24,7 +22,7 @@ public class Villager : MonoBehaviour, IPointerClickHandler, ISaveManager
     public VillagerBrain brain { get; private set; }
 
     public DynamicInventory inventory { get; private set; }
-  //  public InventoryMangerScripableObject inventoryManager;
+    //  public InventoryMangerScripableObject inventoryManager;
 
     public GameObject destination;
     public RessourceProperties destinationProperties;
@@ -40,7 +38,7 @@ public class Villager : MonoBehaviour, IPointerClickHandler, ISaveManager
     private Home home;
 
     public static event System.Action<Villager> SelectedVillagerEvent;
-    
+
 
     #region Debug
     public string currentAction;
@@ -61,7 +59,7 @@ public class Villager : MonoBehaviour, IPointerClickHandler, ISaveManager
         stats = GetComponent<CharacterStats>();
         inventory = GetComponent<DynamicInventory>();
         moveController = GetComponent<MovePreview>();
-       
+
     }
 
     private void Start()
@@ -76,7 +74,7 @@ public class Villager : MonoBehaviour, IPointerClickHandler, ISaveManager
     private void Update()
     {
         stateMachine.currentState.Update();
-     //   currentAction = stateMachine.currentState.ToString();
+        //   currentAction = stateMachine.currentState.ToString();
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -98,6 +96,8 @@ public class Villager : MonoBehaviour, IPointerClickHandler, ISaveManager
     //coroutine
     public void DoWork(int time)
     {
+        if(destinationProperties == null)
+            return;
         animator.SetBool("work", true);
         destinationProperties.AssingVillager();
         StartCoroutine(WorkCoroutine(time));
@@ -129,7 +129,7 @@ public class Villager : MonoBehaviour, IPointerClickHandler, ISaveManager
 
     public void OnFinishedAction()
     {
-        
+
         if (destinationProperties != null)
         {
             destinationProperties.RemoveVillager();
@@ -151,13 +151,13 @@ public class Villager : MonoBehaviour, IPointerClickHandler, ISaveManager
         var targetRessource = new ItemInstance(destinationProperties.getRessource());
         targetRessource.amount = harvestAmount;
         inventory.AddItem(targetRessource);
-        
 
-     
+
+
         ItemInstance itemInstance = new ItemInstance(destinationProperties.getRessource());
-       
+
         OnFinishedAction();
-       
+
     }
 
     IEnumerator SleepCoroutine(int time)
@@ -189,7 +189,7 @@ public class Villager : MonoBehaviour, IPointerClickHandler, ISaveManager
         stats.addHunger(50);
         OnFinishedAction();
     }
-    
+
     IEnumerator WaitCoroutine(int time)
     {
 
@@ -206,9 +206,9 @@ public class Villager : MonoBehaviour, IPointerClickHandler, ISaveManager
 
     IEnumerator TransferItemsCoroutine(int time)
     {
-        for (int i = inventory.items.Count -1; i >= 0; i--)
+        for (int i = inventory.items.Count - 1; i >= 0; i--)
         {
-          //  Debug.Log("i transfer " + inventory.items[i].amount + " x " + inventory.items[i].itemType.itemName + " to " + destination?.name);
+            //  Debug.Log("i transfer " + inventory.items[i].amount + " x " + inventory.items[i].itemType.itemName + " to " + destination?.name);
             if (inventory.transferedItem(destination.GetComponent<DynamicInventory>(), inventory.items[i]))
             {
                 inventory.items.RemoveAt(i);
@@ -227,24 +227,70 @@ public class Villager : MonoBehaviour, IPointerClickHandler, ISaveManager
         OnFinishedAction();
     }
 
-    public void LoadData(GameData _data)
+    public void LoadData(GameDataCharacter _data)
     {
-        Debug.Log("Loaded data for " + name);
+        //load inventory
+        foreach (KeyValuePair<string, string> item in _data.inventory)
+        {
+            Debug.Log("loading item for " +this.name +" : " +item.Key + " x " + item.Value);
+            ItemData itemData = Resources.Load<ItemData>(item.Key);
+            for (int i = 0; i < int.Parse(item.Value); i++)
+            {
+                inventory.AddItem(new ItemInstance(itemData));
+            }
+        }
+        //load stats
+        foreach (KeyValuePair<string, string> stat in _data.stats)
+        {
+            Debug.Log("loading stat for " + this.name + " : " + stat.Key + " x " + stat.Value);
+            switch (stat.Key)
+            {
+                case "hunger":
+                    stats.SetHunger(int.Parse(stat.Value));
+                    break;
+                case "energy":
+                    stats.SetEnergy(int.Parse(stat.Value));
+                    break;
+                case "money":
+                    stats.SetMoney(int.Parse(stat.Value));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        //load position
+        Vector3 position = new Vector3(_data.position[0], _data.position[1], _data.position[2]);
+        this.transform.position = position;
+
+        Debug.Log("Loaded data for " + this.transform.name);
 
     }
 
     public void SaveData(ref GameData _data)
     {
-        //serialize inventory
-        Dictionary<string, int> inventortoSave = new Dictionary<string, int>();
+        GameDataCharacter chardata = new();
+
+        //inventory
         foreach (var item in inventory.items)
         {
-            inventortoSave.Add(item.itemType.itemName, item.amount);
+            chardata.inventory.Add(item.itemType.itemName, item.amount.ToString());
         }
-        string inventoryjson = JsonConvert.SerializeObject(inventortoSave);
-        
-      // _data.character.Add(name, inventoryjson);
+
+        //stats
+        chardata.stats.Add("hunger", stats.hunger.ToString());
+        chardata.stats.Add("energy", stats.energy.ToString());
+        chardata.stats.Add("money", stats.money.ToString());
+
+        //position
+        chardata.position[0] = this.transform.position.x;
+        chardata.position[1] = this.transform.position.y;
+        chardata.position[2] = this.transform.position.z;
+
+        //add all data to gameData
+        _data.characters.Add(this.transform.name, chardata);
     }
+
 
     public int GenerateRandomNumber(int min, int max)
     {

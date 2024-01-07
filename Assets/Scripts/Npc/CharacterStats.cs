@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using UnityEngine;
 
-public class CharacterStats : MonoBehaviour, ISaveManager
+public class CharacterStats : MonoBehaviour 
 {
 
     public int maxEnergy;
@@ -15,21 +15,10 @@ public class CharacterStats : MonoBehaviour, ISaveManager
     // Start is called before the first frame update
     void Start()
     {
-        // work stats
-        //energy = 60;
-        //hunger = 60;
+        //stats will be loaded from savegame just for debuging 
+        //energy = 100;
+        //hunger = 100;
         //money = 0;
-
-        // go to eat state
-
-        //generate random stats
-        energy = Random.Range(0, maxEnergy);
-        hunger = Random.Range(0, maxHunger);
-        money = Random.Range(0, maxMoney);
-
-        energy = 100;
-        hunger = 100;
-        money = 0;
     }
 
     void TakeDamage()
@@ -44,23 +33,10 @@ public class CharacterStats : MonoBehaviour, ISaveManager
     public void AddEnergy(int _sleep) { energy += _sleep; }
     public void RemoveEnergy(int _sleep) { energy -= _sleep; }
 
-    public void LoadData(GameData _data)
-    {
-        throw new System.NotImplementedException();
-    }
+    internal void SetHunger(int v) => hunger = v;
+    internal void SetEnergy(int v) => energy = v;
+    internal void SetMoney(int v) => money = v;
 
-    public void SaveData(ref GameData _data)
-    {
-        //GameDataStats saveStats = new();
+    
 
-        //saveStats.stats.Add("hunger", hunger.ToString());
-        //saveStats.stats.Add("energy", energy.ToString());
-        //saveStats.stats.Add("money", money.ToString());
-
-        
-
-       // var json = JsonConvert.SerializeObject(saveStats);
-       // _data.stats.Add(this.transform.name, json);
-
-    }
 }

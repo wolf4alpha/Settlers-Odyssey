@@ -1,5 +1,3 @@
-using Cinemachine;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,7 +38,7 @@ public class UIManager : MonoBehaviour
     private Villager selectVillager;
 
     [SerializeField]
-    private List<Villager> villagers = new List<Villager>();
+    private List<Villager> _villagers = new List<Villager>();
 
     [SerializeField]
     List<UiInventoryItem> listofUiItems = new List<UiInventoryItem>();
@@ -128,21 +126,21 @@ public class UIManager : MonoBehaviour
     {
         if(selectVillager == null)
         {
-            if (villagers.Count > 0)
+            if (_villagers.Count > 0)
             {
-                villagers[0].selectVillager();
+                _villagers[0].selectVillager();
             }
         }
         else
         {
-            int index = villagers.IndexOf(selectVillager);
-            if (index < villagers.Count - 1)
+            int index = _villagers.IndexOf(selectVillager);
+            if (index < _villagers.Count - 1)
             {
-                villagers[index + 1].selectVillager();
+                _villagers[index + 1].selectVillager();
             }
             else
             {
-                villagers[0].selectVillager();
+                _villagers[0].selectVillager();
             }
         }
     }
@@ -152,21 +150,21 @@ public class UIManager : MonoBehaviour
     {
         if (selectVillager == null)
         {
-            if (villagers.Count > 0)
+            if (_villagers.Count > 0)
             {
-                villagers[0].selectVillager(); 
+                _villagers[0].selectVillager(); 
             }
         }
         else
         {
-            int index = villagers.IndexOf(selectVillager);
+            int index = _villagers.IndexOf(selectVillager);
             if (index > 0)
             {
-                villagers[index - 1].selectVillager();
+                _villagers[index - 1].selectVillager();
             }
             else
             {
-              villagers[villagers.Count - 1].selectVillager();
+              _villagers[_villagers.Count - 1].selectVillager();
             }
         }
     }
@@ -183,12 +181,14 @@ public class UIManager : MonoBehaviour
 
     private void UpdateStats()
     {
+        if(selectVillager == null)
+            return;
         StatsName.text = selectVillager.name;
         StatsHunger.text = selectVillager.stats.hunger.ToString();
         StatsEnergy.text = selectVillager.stats.energy.ToString();
         StatsMoney.text = selectVillager.stats.money.ToString();
         FSM.text = selectVillager.stateMachine.currentState.ToString();
-        BestAction.text = selectVillager.brain.bestAction.name;
+        BestAction.text = selectVillager.brain.bestAction?.name ?? "none";
     }
 
     private void UpdateItems()
@@ -206,5 +206,10 @@ public class UIManager : MonoBehaviour
         }
 
 
+    }
+
+    public void addVilliager(Villager villager)
+    {
+        _villagers.Add(villager);
     }
 }

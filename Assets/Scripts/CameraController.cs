@@ -117,12 +117,16 @@ public class CameraManager : MonoBehaviour
 
     private void FollowCameraHandler()
     {
+        if (villager == null && followCamera.enabled)
+            SwitchCamera();
+
         if (Input.GetKeyDown(KeyCode.C))
         {
             SwitchCamera();
         }
-        if (followCamera.enabled)
+        if (followCamera.enabled && villager != null)
         {
+            
             followCamera.transform.position = villager.transform.position + followCameraInitalOffset;
             followCamera.transform.LookAt(villager.transform.position);
         }

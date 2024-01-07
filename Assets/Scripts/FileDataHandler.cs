@@ -57,7 +57,8 @@ public class FileDataHandler
                        
                     }
                 }
-                loadData = JsonUtility.FromJson<GameData>(dataToLoad);
+                loadData = JsonConvert.DeserializeObject<GameData>(dataToLoad);
+                var a = loadData.characters.Count.ToString();
             }
             catch (Exception ex)
             {
